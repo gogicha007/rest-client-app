@@ -6,9 +6,8 @@
 
 .switch > span {
   position: absolute;
-  top: 14px;
+  top: 12px;
   pointer-events: none;
-  font-family: 'Helvetica', Arial, sans-serif;
   font-weight: bold;
   font-size: 12px;
   text-transform: uppercase;
@@ -17,11 +16,11 @@
   text-align: center;
 }
 
-input.check-toggle-round-flat:checked ~ .off {
+input.checkToggleRoundFlat:checked ~ .off {
   color: var(--secondary-accent);
 }
 
-input.check-toggle-round-flat:checked ~ .on {
+input.checkToggleRoundFlat:checked ~ .on {
   color: #fff;
 }
 
@@ -37,13 +36,13 @@ input.check-toggle-round-flat:checked ~ .on {
   color: #fff;
 }
 
-.check-toggle {
+.checkToggle {
   position: absolute;
   margin-left: -9999px;
   visibility: hidden;
 }
 
-.check-toggle + label {
+.checkToggle + label {
   display: block;
   position: relative;
   cursor: pointer;
@@ -54,7 +53,7 @@ input.check-toggle-round-flat:checked ~ .on {
   user-select: none;
 }
 
-input.check-toggle-round-flat + label {
+input.checkToggleRoundFlat + label {
   padding: 2px;
   width: 97px;
   height: 35px;
@@ -66,13 +65,14 @@ input.check-toggle-round-flat + label {
   border-radius: 60px;
 }
 
-input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
+input.checkToggleRoundFlat + label:before,
+input.checkToggleRoundFlat + label:after {
   display: block;
   position: absolute;
   content: "";
 }
 
-input.check-toggle-round-flat + label:before {
+input.checkToggleRoundFlat + label:before {
   top: 2px;
   left: 2px;
   bottom: 2px;
@@ -84,7 +84,7 @@ input.check-toggle-round-flat + label:before {
   border-radius: 60px;
 }
 
-input.check-toggle-round-flat + label:after {
+input.checkToggleRoundFlat + label:after {
   top: 4px;
   left: 4px;
   bottom: 4px;
@@ -101,6 +101,6 @@ input.check-toggle-round-flat + label:after {
   transition: margin 0.2s;
 }
 
-input.check-toggle-round-flat:checked + label:after {
+input.checkToggleRoundFlat:checked + label:after {
   margin-left: 44px;
 }

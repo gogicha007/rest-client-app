@@ -1,12 +1,11 @@
-import LangToggle from "../language-toggle/langToggle";
-
+import LocaleSwitcher from '../locale-switcher/LocaleSwitcher';
 
 const Header = () => {
   return (
     <div>
-        <LangToggle />
+      <LocaleSwitcher />
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

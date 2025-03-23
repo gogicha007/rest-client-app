@@ -1,7 +1,9 @@
+import Header from '@/components/header/header';
 import './globals.css';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
+import Footer from '@/components/footer/footer';
 
 export const metadata: Metadata = {
   title: 'Rest Client',
@@ -17,7 +19,15 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <header>
+            <Header />
+          </header>
+          {children}
+          <footer>
+            <Footer />
+          </footer>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,11 @@
+{
+  "LocaleSwitcher": {
+    "de": "Deutsch",
+    "en": "English",
+    "label": "Sprache"
+  },
+  "HomePage": {
+    "title": "Startseite",
+    "welcome": "Willkommen auf der Startseite"
+  }
+}
