@@ -15,11 +15,13 @@
   "dependencies": {
     "next": "15.2.3",
     "next-intl": "^4.0.2",
+    "next-plugin-svgr": "^1.1.12",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@svgr/webpack": "^8.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",

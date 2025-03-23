@@ -1,8 +1,11 @@
+import styles from './header.module.css';
 import LocaleSwitcher from '../locale-switcher/LocaleSwitcher';
+import Logo from '../../../public/logo.svg';
 
 const Header = () => {
   return (
-    <div>
+    <div className={styles.header}>
+      <Logo className={styles.logo}/>
       <LocaleSwitcher />
     </div>
   );
