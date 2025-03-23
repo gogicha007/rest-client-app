@@ -18,13 +18,11 @@ export default function LocaleSwitcherSelect({ defaultValue, items }: Props) {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    if (onChange) {
-      onChange(event.target.checked ? 'de' : 'en');
-    }
+    onChange(event.target.checked ? 'de' : 'en');
   };
+
   function onChange(value: string) {
     const locale = value as Locale;
-    console.log(value);
     startTransition(() => {
       setUserLocale(locale);
     });
@@ -40,7 +38,7 @@ export default function LocaleSwitcherSelect({ defaultValue, items }: Props) {
           checked={checked}
           onChange={handleChange}
         />
-        <label htmlFor="language-toggle"></label>
+        <label data-testid="language-toggle" htmlFor="language-toggle"></label>
         <span className={styles.on}>{items[0].value}</span>
         <span className={styles.off}>{items[1].value}</span>
       </div>
