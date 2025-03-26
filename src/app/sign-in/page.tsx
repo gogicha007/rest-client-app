@@ -1,6 +1,6 @@
 'use client';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../../lib/firebase/config';
+import { auth } from '../../lib/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import AuthForm from '@/components/auth-form/authForm';
 import Loader from '@/components/loader/loader';
@@ -18,10 +18,14 @@ const SignIn = () => {
     try {
       const res = await signInWithEmailAndPassword(email, password);
       console.log({ res });
-      sessionStorage.setItem('user', 'true');
-      router.push('/');
+      if (res?.user) {
+        sessionStorage.setItem('user', 'true');
+        router.push('/');
+      } else {
+        throw new Error('An error occured');
+      }
     } catch (error) {
-      console.error(error);
+      console.error('an error occured', error);
     }
   };
 

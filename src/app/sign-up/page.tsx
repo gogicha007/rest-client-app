@@ -1,6 +1,6 @@
 'use client';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../../lib/firebase/config';
+import { auth } from '../../lib/firebaseConfig';
 import AuthForm from '@/components/auth-form/authForm';
 
 const SignUp = () => {
