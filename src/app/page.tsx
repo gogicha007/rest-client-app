@@ -1,7 +1,7 @@
 'use client';
 import styles from './page.module.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../app/firebase/config';
+import { auth } from '../lib/firebase/config';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 

@@ -2,7 +2,7 @@
 import styles from './page.module.css';
 import { useState } from 'react';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase/config';
+import { auth } from '../../lib/firebase/config';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
