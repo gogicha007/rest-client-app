@@ -60,7 +60,7 @@ describe('LocaleSwitcherSelect', () => {
     const checkbox = screen.getByRole('checkbox');
 
     fireEvent.click(checkbox);
-    
+
     await waitFor(() => {
       expect(screen.getByTestId('loader')).toBeInTheDocument();
     });
