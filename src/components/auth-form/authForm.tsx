@@ -1,7 +1,10 @@
+"use client";
 import styles from './auth-form.module.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { register as firebaseRegister, login } from '../../lib/firebaseConfig';
+import { useRouter } from 'next/navigation';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
@@ -21,10 +24,10 @@ type FormFields = z.infer<typeof schema>;
 
 interface AuthFormProps {
   authType: string;
-  authFunction: (email: string, password: string) => Promise<void>;
+  authFunction?: (email: string, password: string) => Promise<void>;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ authType, authFunction }) => {
+const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
   const {
     register,
     handleSubmit,
@@ -33,13 +36,29 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType, authFunction }) => {
     resolver: zodResolver(schema),
     mode: 'onChange',
   });
-
+  const router = useRouter();
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
-    try {
-      const { email, password } = data;
-      await authFunction(email, password);
-    } catch (error) {
-      console.error(error);
+    const { email, password } = data;
+    if(authType === 'Sign Up') {
+      firebaseRegister(email, password);
+      sessionStorage.setItem('user', 'true');
+      console.log('sign up', email, password);
+    }
+    if(authType === 'Sign In') {
+      try {
+        const res = await login(email, password);
+        console.log('res', res);
+        console.log('sign in', email, password);
+        sessionStorage.setItem('user', 'true');
+        router.push('/');
+      } catch (err) {
+        console.error('An error occurred:', err);
+        if (err instanceof Error) {
+          throw new Error(err.message || 'Failed to sign in');
+        } else {
+          throw new Error('Failed to sign in');
+        }
+      }
     }
   };
 
@@ -55,6 +74,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType, authFunction }) => {
               id="email"
               type="email"
               className={styles.auth__input}
+              autoComplete="email"
             />
           </label>
           <p className={styles.auth__error}>{errors?.email?.message}</p>
@@ -67,6 +87,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType, authFunction }) => {
               id="password"
               type="password"
               className={styles.auth__input}
+              autoComplete="current-password"
             />
           </label>
           <p className={styles.auth__error + ' ' + styles.password}>

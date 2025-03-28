@@ -4,17 +4,21 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
 export default function Home() {
   const [user] = useAuthState(auth);
   const router = useRouter();
-  console.log({ user });
-
   const t = useTranslations('HomePage');
-  console.log(t('title'));
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/sign-in');
+    }
+  }, [user, router]);
 
   if (!user) {
-    router.push('/sign-in');
+    return null;
   }
 
   return (
