@@ -1,11 +1,19 @@
 {
-  "LocaleSwitcher": {
-    "de": "Deutsch",
-    "en": "English",
-    "label": "Sprache"
-  },
-  "HomePage": {
-    "title": "Startseite",
-    "welcome": "Willkommen auf der Startseite"
-  }
+    "LocaleSwitcher": {
+        "de": "Deutsch",
+        "en": "Englisch",
+        "label": "Sprache"
+    },
+    "HomePage": {
+        "title": "Startseite",
+        "welcome": "Willkommen auf der Startseite"
+    },
+    "AuthForm": {
+        "login": "Anmelden",
+        "register": "Registrieren",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "logout": "Abmelden",
+        "error": "Ein unerwarteter Fehler ist aufgetreten."
+    }
 }

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { schema, FormFields } from './validation';
 import Loader from '../loader/loader';
 import { UserCredential } from 'firebase/auth';
+import { useTranslations } from 'next-intl';
 
 interface AuthFormProps {
   authType: string;
@@ -17,6 +18,7 @@ interface AuthFormProps {
 const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations('AuthForm');
   const {
     register,
     handleSubmit,
@@ -51,7 +53,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unexpected error occurred');
+        setError(`${t('error')}`);
       }
     } finally {
       setLoading(false);
@@ -60,20 +62,20 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     const { email, password } = data;
-    if (authType === 'Sign Up') {
+    if (authType === 'register') {
       await handleAuth(firebaseRegister, email, password);
-    } else if (authType === 'Sign In') {
+    } else if (authType === 'login') {
       await handleAuth(login, email, password);
     }
   };
 
   return (
     <div className={styles.auth}>
-      <h1>{authType}</h1>
+      <h1>{t(authType)}</h1>
       <form className={styles.auth__form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.auth__item}>
           <label htmlFor="email" className={styles.auth__label}>
-            Email
+            {t('email')}
             <input
               {...register('email')}
               id="email"
@@ -86,7 +88,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
         </div>
         <div className={styles.auth__item}>
           <label htmlFor="password" className={styles.auth__label}>
-            Password
+            {t('password')}
             <input
               {...register('password')}
               id="password"
@@ -100,7 +102,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
           </p>
         </div>
         <button type="submit" disabled={!isValid}>
-          {authType}
+          {t(authType)}
         </button>
       </form>
       {loading && <Loader />}
