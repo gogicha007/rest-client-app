@@ -1,10 +1,11 @@
-"use client";
+'use client';
 import styles from './auth-form.module.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { register as firebaseRegister, login } from '../../lib/firebaseConfig';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const schema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
@@ -12,7 +13,7 @@ const schema = z.object({
     .string()
     .min(4, { message: 'Password must be at least 4 characters' })
     .regex(
-      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>]).{4,}$/,
+      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/,
       {
         message:
           'Password to contain: 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character',
@@ -28,6 +29,7 @@ interface AuthFormProps {
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
+  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -37,26 +39,41 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
     mode: 'onChange',
   });
   const router = useRouter();
+
+  useEffect(() => {
+    if (error) {
+      throw new Error(error);
+    }
+  }, [error]);
+
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     const { email, password } = data;
-    if(authType === 'Sign Up') {
-      firebaseRegister(email, password);
-      sessionStorage.setItem('user', 'true');
-      console.log('sign up', email, password);
-    }
-    if(authType === 'Sign In') {
+    if (authType === 'Sign Up') {
       try {
-        const res = await login(email, password);
-        console.log('res', res);
-        console.log('sign in', email, password);
+        const res = await firebaseRegister(email, password);
+        console.log('sign up', res);
         sessionStorage.setItem('user', 'true');
         router.push('/');
       } catch (err) {
-        console.error('An error occurred:', err);
         if (err instanceof Error) {
-          throw new Error(err.message || 'Failed to sign in');
+          setError(err.message);
         } else {
-          throw new Error('Failed to sign in');
+          setError('Failed to sign in');
+        }
+      }
+    }
+    if (authType === 'Sign In') {
+      try {
+        const res = await login(email, password);
+        console.log('res', res);
+        sessionStorage.setItem('user', 'true');
+        setError(null);
+        router.push('/');
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Failed to sign in');
         }
       }
     }
