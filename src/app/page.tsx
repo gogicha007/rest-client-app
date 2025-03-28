@@ -1,5 +1,5 @@
 'use client';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebaseConfig';
 import { useTranslations } from 'next-intl';

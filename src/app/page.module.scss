@@ -1,3 +1,19 @@
+$mobile-breakpoint: 600px;
+$hover-breakpoint: '(hover: hover) and (pointer: fine)';
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition-smooth {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
 .home {
   display: flex;
   flex-direction: column;
@@ -23,8 +39,5 @@
 }
 .home__menu {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: center;  
-
+  justify-content: center;
 }

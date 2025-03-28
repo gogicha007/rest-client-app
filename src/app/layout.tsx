@@ -1,5 +1,5 @@
 import Header from '@/components/header/header';
-import './globals.css';
+import './globals.scss';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
