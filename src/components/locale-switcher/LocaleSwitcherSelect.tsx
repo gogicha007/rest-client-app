@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './locale-switcher.module.css';
+import styles from './locale-switcher.module.scss';
 import { useTransition, useState } from 'react';
 import { Locale } from '@/i18n/config';
 import { setUserLocale } from '../../services/locale';

@@ -11,7 +11,7 @@
   font-weight: bold;
   font-size: 12px;
   text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
   width: 50%;
   text-align: center;
 }
@@ -69,7 +69,7 @@ input.checkToggleRoundFlat + label:before,
 input.checkToggleRoundFlat + label:after {
   display: block;
   position: absolute;
-  content: "";
+  content: '';
 }
 
 input.checkToggleRoundFlat + label:before {

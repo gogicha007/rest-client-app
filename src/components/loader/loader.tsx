@@ -1,10 +1,10 @@
-import './loader.css';
+import styles from './loader.module.scss';
 
 const Loader = () => {
   console.log('Loader');
   return (
-    <div className="modal">
-      <div className="loader" data-testid="loader"></div>
+    <div className={styles.modal}>
+      <div className={styles.loader} data-testid="loader"></div>
     </div>
   );
 };

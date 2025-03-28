@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  sassOptions: {
+    includePaths: [require('path').join(__dirname, 'styles')],
+    additionalData: ``,
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

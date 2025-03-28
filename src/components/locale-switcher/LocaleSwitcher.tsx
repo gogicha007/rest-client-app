@@ -1,4 +1,4 @@
-import {useLocale, useTranslations} from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
 
 export default function LocaleSwitcher() {
@@ -11,12 +11,12 @@ export default function LocaleSwitcher() {
       items={[
         {
           value: 'en',
-          label: t('en')
+          label: t('en'),
         },
         {
           value: 'de',
-          label: t('de')
-        }
+          label: t('de'),
+        },
       ]}
       label={t('label')}
     />

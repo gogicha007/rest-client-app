@@ -1,10 +1,10 @@
 module.exports = {
-    process() {
-      return {
-        code: 'module.exports = {};',
-      };
-    },
-    getCacheKey() {
-      return 'cssTransform';
-    },
-  };
+  process() {
+    return {
+      code: 'module.exports = {};',
+    };
+  },
+  getCacheKey() {
+    return 'cssTransform';
+  },
+};
