@@ -2,28 +2,26 @@
 import styles from './page.module.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebaseConfig';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [user] = useAuthState(auth);
-  const router = useRouter();
-  const t = useTranslations('HomePage');
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/sign-in');
-    }
-  }, [user, router]);
-
-  if (!user) {
-    return null;
-  }
+  const tH = useTranslations('HomePage');
+  const tA = useTranslations('AuthForm');
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>{t('title')}</main>
+    <div className={styles.home}>
+      <div className={styles.home__welcome}>
+        {tH('welcome')}
+        {!user && (
+          <div className={styles.home__auth}>
+            <Link href="/sign-in">{tA('login')}</Link>
+            <Link href="/sign-up">{tA('register')}</Link>
+          </div>
+        )}
+      </div>
+      <div className={styles.home__menu}>HOME PAGE MENU ITEMS</div>
     </div>
   );
 }

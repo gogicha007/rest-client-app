@@ -6,7 +6,7 @@
       },
     "HomePage": {
         "title": "Home Page",
-        "welcome": "Welcome to the home page"
+        "welcome": "Welcome!"
     },
     "AuthForm":{
         "login": "Sign In",
