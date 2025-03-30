@@ -18,9 +18,11 @@ const SignIn = () => {
   if (loading) {
     return <Loading />;
   }
+
   if (currentUser) {
     return null;
   }
+  
   return <AuthForm authType="login" />;
 };
 
