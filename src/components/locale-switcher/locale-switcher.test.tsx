@@ -9,9 +9,9 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
-import { setUserLocale } from '../../services/locale';
+import { setUserLocale } from '../../utils/locale';
 
-jest.mock('../../services/locale', () => ({
+jest.mock('../../utils/locale', () => ({
   setUserLocale: jest.fn(),
 }));
 
