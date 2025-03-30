@@ -31,4 +31,5 @@ const login = (email: string, password: string) => {
 const logout = () => {
   return signOut(auth);
 };
+
 export { app, auth, register, login, logout };
