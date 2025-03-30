@@ -13,7 +13,7 @@ const SignIn = () => {
     if (!loading && currentUser) {
       router.push('/');
     }
-  }, [useRouter, loading, currentUser]);
+  }, [router, loading, currentUser]);
 
   if (loading) {
     return <Loading />;
