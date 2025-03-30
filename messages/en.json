@@ -1,11 +1,20 @@
 {
-  "LocaleSwitcher": {
-    "de": "Deutsch",
-    "en": "English",
-    "label": "Language"
-  },
-  "HomePage": {
-    "title": "Home Page",
-    "welcome": "Welcome to the home page"
-  }
+    "LocaleSwitcher": {
+        "de": "Deutsch",
+        "en": "English",
+        "label": "Language"
+      },
+    "HomePage": {
+        "title": "Home Page",
+        "welcome": "Welcome!",
+        "welcomeBack": "Welcome back!"
+    },
+    "AuthForm":{
+        "login": "Sign In",
+        "register": "Sign Up",
+        "email": "Email",
+        "password": "Password",
+        "logout": "Sign Out",
+        "error": "An unexpected error occurred."
+    }
 }
