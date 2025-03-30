@@ -3,7 +3,7 @@
 import styles from './locale-switcher.module.scss';
 import { useTransition, useState } from 'react';
 import { Locale } from '@/i18n/config';
-import { setUserLocale } from '../../services/locale';
+import { setUserLocale } from '@/utils/locale';
 import Loader from '../loader/loader';
 
 type Props = {

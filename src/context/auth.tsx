@@ -1,7 +1,8 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, User, getIdTokenResult } from 'firebase/auth';
-import { auth } from '@/lib/firebaseConfig';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { auth } from '@/utils/firebaseConfig'; // Updated import
+import { isTokenExpired } from '@/utils/authUtils';
 
 export const AuthContext = createContext<{
   currentUser: User | null;
@@ -17,15 +18,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-  const isTokenExpired = async (user: User | null): Promise<boolean> => {
-    if (!user) return true;
-    const tokenResult = await getIdTokenResult(user);
-    const currentTime = Math.floor(Date.now() / 1000);
-    return tokenResult.expirationTime
-      ? currentTime >= new Date(tokenResult.expirationTime).getTime() / 1000
-      : true;
-  };
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {

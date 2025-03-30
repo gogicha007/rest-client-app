@@ -1,7 +1,7 @@
 import styles from './auth-bar.module.scss';
 import { useTranslations } from 'next-intl';
 import { signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebaseConfig';
+import { auth } from '@/utils/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/auth';
 

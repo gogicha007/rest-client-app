@@ -2,7 +2,7 @@
 import styles from './auth-form.module.css';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { register as firebaseRegister, login } from '../../lib/firebaseConfig';
+import { register as firebaseRegister, login } from '@/utils/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { schema, FormFields } from './validation';
