@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebaseConfig';
 import { useRouter } from 'next/navigation';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuth } from '@/context/auth';
 
 const AuthBar = () => {
-  const [user] = useAuthState(auth);
+  const {currentUser} = useAuth();
   const tA = useTranslations('AuthForm');
   const router = useRouter();
   const handleLogout = () => {
@@ -20,15 +20,15 @@ const AuthBar = () => {
   };
   return (
     <div className={styles['auth-bar']}>
-      {!user && (<div className={styles['auth-bar__login']}>
+      {!currentUser && (<div className={styles['auth-bar__login']}>
         <button onClick={() => router.push('/sign-up')}>
           {tA('register')}
         </button>
         <button onClick={() => router.push('/sign-in')}>{tA('login')}</button>
       </div>)}
-      {user && (
+      {currentUser && (
       <div className={styles['auth-bar__logout']}>
-        <button onClick={handleLogout}>{tA('logout')}</button>
+        <button onClick={handleLogout}>{tA('logout')}, {currentUser.email}</button>
       </div>)}
     </div>
   );

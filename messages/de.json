@@ -6,7 +6,8 @@
     },
     "HomePage": {
         "title": "Startseite",
-        "welcome": "Willkommen!"
+        "welcome": "Willkommen!",
+        "welcomeBack": "Willkommen zurück!"
     },
     "AuthForm": {
         "login": "Anmelden",

@@ -46,7 +46,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
     setLoading(true);
     try {
       await authFunction(email, password);
-      sessionStorage.setItem('user', 'true');
       setError(null);
       router.push('/');
     } catch (err) {
