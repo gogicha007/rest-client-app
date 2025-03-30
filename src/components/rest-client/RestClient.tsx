@@ -19,8 +19,9 @@ const RestClient: React.FC = () => {
     body: '',
   });
 
+  // Здесь происходит восстановление значений по URL адресу из base64 формата
   useEffect(() => {
-    // Decode URL from base64 if present in search params
+    // Восстанавливаем состояние URL
     const encodedUrl = searchParams.get('url');
     if (encodedUrl) {
       try {
@@ -31,7 +32,7 @@ const RestClient: React.FC = () => {
       }
     }
 
-    // Decode body from base64 if present
+    // Восстанавливаем состояние тела запроса (json)
     const encodedBody = searchParams.get('body');
     if (encodedBody) {
       try {
@@ -42,7 +43,7 @@ const RestClient: React.FC = () => {
       }
     }
 
-    // Parse headers from search params
+    // Восстанавливаем состояние заголовков запроса
     const headers: Record<string, string> = {};
     searchParams.forEach((value: string, key: string) => {
       if (key !== 'url' && key !== 'body') {
@@ -54,11 +55,11 @@ const RestClient: React.FC = () => {
     }
   }, [searchParams]);
 
+  // Изменяем URL адресс в зависимости от значений, подставляя их в качестве base64
   const handleRequestDataChange = (newData: Partial<RequestData>) => {
     const updatedData = { ...requestData, ...newData };
     setRequestData(updatedData);
 
-    // Update URL with new data
     const params = new URLSearchParams();
     if (updatedData.url) {
       params.set('url', btoa(updatedData.url));
