@@ -1,23 +1,14 @@
 import styles from './auth-bar.module.scss';
 import { useTranslations } from 'next-intl';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/utils/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/auth';
+import { logout } from '@/utils/firebaseConfig';
 
 const AuthBar = () => {
   const {currentUser} = useAuth();
   const tA = useTranslations('AuthForm');
   const router = useRouter();
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log('signed out');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  
   return (
     <div className={styles['auth-bar']}>
       {!currentUser && (<div className={styles['auth-bar__login']}>
@@ -28,7 +19,7 @@ const AuthBar = () => {
       </div>)}
       {currentUser && (
       <div className={styles['auth-bar__logout']}>
-        <button onClick={handleLogout}>{tA('logout')}, {currentUser.email}</button>
+        <button onClick={() => logout()}>{tA('logout')}, {currentUser.email}</button>
       </div>)}
     </div>
   );
