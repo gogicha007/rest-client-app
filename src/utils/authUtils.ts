@@ -5,7 +5,7 @@ export const isTokenExpired = async (user: User | null): Promise<boolean> => {
   const tokenResult = await getIdTokenResult(user);
   const currentTime = Math.floor(Date.now() / 1000);
   const theDate = new Date(Date.now()).toLocaleString('en-US', {
-    timeZone: 'UTC', 
+    timeZone: 'UTC',
     hour12: false,
   });
   console.log(tokenResult.expirationTime, theDate);

@@ -22,7 +22,7 @@ const SignUp = () => {
   if (currentUser) {
     return null;
   }
-  
+
   return <AuthForm authType="register" />;
 };
 

@@ -22,7 +22,7 @@ const SignIn = () => {
   if (currentUser) {
     return null;
   }
-  
+
   return <AuthForm authType="login" />;
 };
 

@@ -1,20 +1,20 @@
 {
-    "LocaleSwitcher": {
-        "de": "Deutsch",
-        "en": "Englisch",
-        "label": "Sprache"
-    },
-    "HomePage": {
-        "title": "Startseite",
-        "welcome": "Willkommen!",
-        "welcomeBack": "Willkommen zurück!"
-    },
-    "AuthForm": {
-        "login": "Anmelden",
-        "register": "Registrieren",
-        "email": "E-Mail",
-        "password": "Passwort",
-        "logout": "Abmelden",
-        "error": "Ein unerwarteter Fehler ist aufgetreten."
-    }
+  "LocaleSwitcher": {
+    "de": "Deutsch",
+    "en": "Englisch",
+    "label": "Sprache"
+  },
+  "HomePage": {
+    "title": "Startseite",
+    "welcome": "Willkommen!",
+    "welcomeBack": "Willkommen zurück!"
+  },
+  "AuthForm": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "logout": "Abmelden",
+    "error": "Ein unerwarteter Fehler ist aufgetreten."
+  }
 }
