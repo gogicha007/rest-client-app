@@ -6,8 +6,10 @@ import { isTokenExpired } from '@/utils/authUtils';
 
 export const AuthContext = createContext<{
   currentUser: User | null;
+  loading: boolean;
 }>({
   currentUser: null,
+  loading: true,
 });
 
 export const useAuth = () => {
@@ -18,6 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -33,11 +36,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       } else {
         setCurrentUser(null);
       }
+      setLoading(false);
     });
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, loading }}>
       {children}
     </AuthContext.Provider>
   );
