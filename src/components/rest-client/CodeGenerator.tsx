@@ -19,20 +19,36 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
     language: 'csharp',
   });
   const [generatedCode, setGeneratedCode] = useState<string>('');
+  const [languageOptions, setLanguageOptions] = useState<
+    Array<{ option: string; language: string }>
+  >([]);
 
-  const getCodegenOptions = codegen
-    .getLanguageList()
-    .reduce((acc: Record<string, string>[], curLanguage) => {
-      curLanguage.variants.forEach((variant) => {
-        acc.push({
-          option: curLanguage.label + ' - ' + variant.key,
-          language: curLanguage.key,
-        });
-      });
-      return acc;
-    }, []);
+  useEffect(() => {
+    // Get available languages and variants
+    const options = codegen
+      .getLanguageList()
+      .reduce(
+        (acc: Array<{ option: string; language: string }>, curLanguage) => {
+          curLanguage.variants.forEach((variant) => {
+            acc.push({
+              option: `${curLanguage.label} - ${variant.key}`,
+              language: curLanguage.key,
+            });
+          });
+          return acc;
+        },
+        []
+      );
+
+    setLanguageOptions(options);
+  }, []);
 
   const generateCode = useCallback(() => {
+    if (!requestData.url) {
+      setGeneratedCode('Please enter a URL to generate code');
+      return;
+    }
+
     const request = new Request({
       method: requestData.method,
       url: requestData.url,
@@ -58,8 +74,8 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
     };
 
     codegen.convert(
-      selectedLanguage?.language,
-      selectedLanguage?.option.split('- ')[1],
+      selectedLanguage.language,
+      selectedLanguage.option.split('- ')[1],
       request,
       convertOptions,
       (error: Error | null, snippet: string) => {
@@ -81,11 +97,10 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
     <div className={s.codeGenerator}>
       <div className={s.codeGeneratorHeader}>
         <h3>Generated Code</h3>
-
         <select
           value={selectedLanguage.option}
           onChange={(e) => {
-            const currentOption = getCodegenOptions.find(
+            const currentOption = languageOptions.find(
               (option) => option.option === e.target.value
             );
             if (!currentOption) return;
@@ -96,7 +111,7 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
           }}
           className={s.languageSelector}
         >
-          {getCodegenOptions.map((option) => (
+          {languageOptions.map((option) => (
             <option key={option.option} value={option.option}>
               {option.option}
             </option>
