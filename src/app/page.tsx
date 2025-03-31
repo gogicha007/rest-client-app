@@ -9,32 +9,32 @@ export default function Home() {
   const tH = useTranslations('HomePage');
   const tA = useTranslations('AuthForm');
 
-  const renderWelcomeMessage = () => {
-    if (currentUser) {
-      return `${tH('welcomeBack')} ${currentUser.email}`;
-    }
-    return tH('welcome');
-  };
-
-  const renderAuthLinks = () => {
-    if (!currentUser) {
-      return (
+  const WelcomeMessage = () => (
+    <div className={styles.home__welcome}>
+      {currentUser
+        ? `${tH('welcomeBack')} ${currentUser.email}`
+        : tH('welcome')}
+      {!currentUser && (
         <div className={styles.home__auth}>
           <Link href="/sign-in">{tA('login')}</Link>
           <Link href="/sign-up">{tA('register')}</Link>
         </div>
-      );
-    }
-    return null;
-  };
+      )}
+    </div>
+  );
+
+  const MenuLinks = () => (
+    <div className={styles.home__menu}>
+      <Link href="/rest-client">{tH('restClient')}</Link>
+      <Link href="/history">{tH('history')}</Link>
+      <Link href="/variables">{tH('variables')}</Link>
+    </div>
+  );
 
   return (
     <div className={styles.home}>
-      <div className={styles.home__welcome}>
-        {renderWelcomeMessage()}
-        {renderAuthLinks()}
-      </div>
-      <div className={styles.home__menu}>HOME PAGE MENU ITEMS</div>
+      <WelcomeMessage />
+      {currentUser && <MenuLinks />}
     </div>
   );
 }
