@@ -1,0 +1,27 @@
+.variables {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.variables__section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.variables__container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.variables__inputContainer {
+  display: flex;
+  gap: 10px;
+}

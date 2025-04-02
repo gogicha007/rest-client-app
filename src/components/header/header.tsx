@@ -16,6 +16,9 @@ const Header = () => {
         <Link href="/rest-client" className={styles.navLink}>
           REST Client
         </Link>
+        <Link href="/variables" className={styles.navLink}>
+          Variables
+        </Link>
       </nav>
       <LocaleSwitcher />
       <AuthBar />
