@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { RequestData, ResponseData } from '../../types/request';
 import s from './RestClient.module.scss';
+import { saveRequestData } from '@/utils/firebaseConfig';
+import { getAuth } from 'firebase/auth';
 
 interface ResponseSectionProps {
   requestData: RequestData;
@@ -49,6 +51,13 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
         headers,
         body: parsedBody,
       });
+
+      // Save request data to Firebase
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        await saveRequestData(user.uid, requestData);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
