@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import Footer from '@/components/footer/footer';
 import { AuthProvider } from '@/context/auth';
+import { ReduxProvider } from '@/store/ReduxProvider';
 
 export const metadata: Metadata = {
   title: 'Rest Client',
@@ -20,17 +21,19 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <AuthProvider>
-          <NextIntlClientProvider>
-            <header>
-              <Header />
-            </header>
-            <main>{children}</main>
-            <footer>
-              <Footer />
-            </footer>
-          </NextIntlClientProvider>
-        </AuthProvider>
+        <ReduxProvider>
+          <AuthProvider>
+            <NextIntlClientProvider>
+              <header>
+                <Header />
+              </header>
+              <main>{children}</main>
+              <footer>
+                <Footer />
+              </footer>
+            </NextIntlClientProvider>
+          </AuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
