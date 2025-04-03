@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import { getRequestHistory, auth } from '@/utils/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
+import { RequestData } from '@/types/request';
 
 const History = () => {
-  const [requestHistory, setRequestHistory] = useState<{ url: string }[]>([]);
+  const [requestHistory, setRequestHistory] = useState<RequestData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

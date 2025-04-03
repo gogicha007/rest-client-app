@@ -5,14 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  orderBy,
-} from 'firebase/firestore';
+import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
 import { RequestData } from '@/types/request';
 
 const firebaseConfig = {
@@ -26,7 +19,6 @@ const firebaseConfig = {
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -43,7 +35,6 @@ const logout = () => {
 };
 
 const saveRequestData = async (userId: string, requestData: RequestData) => {
-  console.log(userId, requestData);
   try {
     const docRef = await addDoc(
       collection(db, 'users', userId, 'requests'),
@@ -60,14 +51,14 @@ const saveRequestData = async (userId: string, requestData: RequestData) => {
 const getRequestHistory = async (userId: string) => {
   try {
     const requestsRef = collection(db, 'users', userId, 'requests');
-    const q = query(requestsRef, orderBy('timestamp', 'desc'));
-    const querySnapshot = await getDocs(q);
-    console.log('querySnapshot', querySnapshot);
+    const querySnapshot = await getDocs(requestsRef);
 
     const history = querySnapshot.docs.map((doc) => ({
       id: doc.id,
+      body: doc.data().body,
+      headers: doc.data().headers,
+      method: doc.data().method,
       url: doc.data().url,
-      ...doc.data(),
     }));
     return history;
   } catch (error) {
