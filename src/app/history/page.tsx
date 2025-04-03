@@ -17,11 +17,9 @@ const History = () => {
     const fetchHistory = async () => {
       try {
         onAuthStateChanged(auth, async (user) => {
-          console.log('history user', user?.uid);
           if (user) {
             const userId = user.uid;
             const history = await getRequestHistory(userId);
-            console.log('history', history);
             setRequestHistory(history);
           } else {
             setError('User not authenticated');

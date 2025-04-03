@@ -28,7 +28,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log('context user', user);
       if (user) {
         const expired = await isTokenExpired(user);
         if (!expired) {

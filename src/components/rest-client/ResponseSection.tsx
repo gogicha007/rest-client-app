@@ -19,7 +19,6 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
       return;
     }
 
-    console.log(requestData);
     setIsLoading(true);
     setError(null);
 
@@ -56,7 +55,6 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
       // Save request data to Firebase
       const auth = getAuth();
       const user = auth.currentUser;
-      console.log('response section', user?.uid)
       if (user) {
         await saveRequestData(user.uid, requestData);
       }
