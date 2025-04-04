@@ -1,4 +1,5 @@
 'use client';
+import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getRequestHistory, auth } from '@/utils/firebaseConfig';
@@ -15,6 +16,7 @@ const History = () => {
 
   useEffect(() => {
     const fetchHistory = async () => {
+      setLoading(true);
       try {
         onAuthStateChanged(auth, async (user) => {
           if (user) {
@@ -26,37 +28,46 @@ const History = () => {
           }
           setLoading(false);
         });
+        return () => {
+          const unsubscribeAuth = onAuthStateChanged(auth, () => {});
+          unsubscribeAuth();
+        };
       } catch (err) {
         console.log(err);
         setError('Failed to fetch history');
       }
-      setLoading(false);
     };
     fetchHistory();
   }, []);
+
   if (loading) {
     return <Loader />;
   }
+
   if (error) {
     return <div>{error}</div>;
   }
+
   return (
-    <>
-      <div>History</div>
+    <div className={styles.history}>
+      <h1>History</h1>
       {requestHistory.length === 0 ? (
-        <div>No request history found</div>
+        <div>
+          <p>No request history found.</p>
+        </div>
       ) : (
         <ul>
           {requestHistory.map((request, index) => (
             <li key={index}>
-              <strong>URL:</strong>
-              {request.url} <br />
+              <a href="#">
+                {request.url} <br />
+              </a>
             </li>
           ))}
         </ul>
       )}
       <button onClick={() => router.push('/')}>back to main</button>
-    </>
+    </div>
   );
 };
 
