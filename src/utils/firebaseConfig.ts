@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
+import { RequestData } from '@/types/request';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,8 +19,8 @@ const firebaseConfig = {
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const register = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -32,4 +34,53 @@ const logout = () => {
   return signOut(auth);
 };
 
-export { app, auth, register, login, logout };
+const saveRequestData = async (userId: string, requestData: RequestData) => {
+  try {
+    const history = await getRequestHistory(userId)
+    const urls = history.map((val)=>val.url)
+    const checkUrl = urls.includes(requestData.url)
+    if (checkUrl) {
+      console.log('does not saved because its already saved')
+      return
+    }
+    const docRef = await addDoc(
+      collection(db, 'users', userId, 'requests'),
+      requestData
+    );
+    console.log('Request data saved with ID:', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error saving request data:', error);
+    throw error;
+  }
+};
+
+const getRequestHistory = async (userId: string) => {
+  try {
+    const requestsRef = collection(db, 'users', userId, 'requests');
+    const querySnapshot = await getDocs(requestsRef);
+
+    const history = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      body: doc.data().body,
+      headers: doc.data().headers,
+      method: doc.data().method,
+      url: doc.data().url,
+    }));
+    return history;
+  } catch (error) {
+    console.error('Error fetching request history:', error);
+    throw error;
+  }
+};
+
+export {
+  app,
+  auth,
+  db,
+  register,
+  login,
+  logout,
+  saveRequestData,
+  getRequestHistory,
+};
