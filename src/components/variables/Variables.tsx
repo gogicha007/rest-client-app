@@ -9,6 +9,7 @@ import {
   saveVariableToLocalStorage,
   removeVariableFromLocalStorage,
 } from '@/store//variablesThunks';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 import s from './Variables.module.scss';
 
 export const Variables = () => {
@@ -53,18 +54,25 @@ export const Variables = () => {
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
-            <button onClick={handleAdd}>Add</button>
+            <button className="button" onClick={handleAdd}>
+              Add
+            </button>
           </div>
         </div>
         <div>
           <h3>Current Variables</h3>
           <div>
             {variables.map((variable) => (
-              <div key={variable.key}>
-                {variable.key}: {variable.value}
-                <button onClick={() => handleRemove(variable.key)}>
-                  Remove
+              <div key={variable.key} className={s.variables__item}>
+                <button
+                  className={s.variables__close}
+                  onClick={() => handleRemove(variable.key)}
+                >
+                  <IoIosCloseCircleOutline className="text-2xl" />
                 </button>
+                <span>
+                  {variable.key}: {variable.value}
+                </span>
               </div>
             ))}
           </div>
