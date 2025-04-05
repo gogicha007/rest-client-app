@@ -63,7 +63,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
         <button
           onClick={sendRequest}
           disabled={isLoading}
-          className={s.sendRequestBtn}
+          className={`button ${s.sendRequestBtn}`}
         >
           {isLoading ? 'Sending...' : 'Send Request'}
         </button>

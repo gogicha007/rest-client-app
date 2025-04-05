@@ -50,7 +50,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
     <div className={s.requestBodyEditor}>
       <div className={s.editorHeader}>
         <h3>Request Body</h3>
-        <button onClick={handleFormat} className={s.formatBtn}>
+        <button onClick={handleFormat} className={`button ${s.formatBtn}`}>
           Format JSON
         </button>
       </div>

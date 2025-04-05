@@ -6,7 +6,9 @@ const History = () => {
   return (
     <>
       <div>History</div>
-      <button onClick={() => router.push('/')}>back to main</button>
+      <button className="button" onClick={() => router.push('/')}>
+        back to main
+      </button>
     </>
   );
 };

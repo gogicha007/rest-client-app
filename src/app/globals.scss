@@ -72,21 +72,21 @@ a {
   color: var(--primary-accent);
   text-decoration: none;
 }
-button.primary {
+.button.primary {
   background-color: var(--primary-accent);
   color: #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
 }
-button.secondary {
+.button.secondary {
   background-color: var(--secondary-accent);
   color: #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
 }
-button {
+.button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
@@ -94,10 +94,10 @@ button {
   color: white;
   cursor: pointer;
 }
-button:hover {
+.button:hover {
   background-color: #0056b3;
 }
-button:disabled {
+.button:disabled {
   background-color: #ccc;
   color: #666;
   cursor: not-allowed;
