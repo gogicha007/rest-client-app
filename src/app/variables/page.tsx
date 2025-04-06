@@ -1,14 +1,14 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { Variables } from '@/components/variables/Variables';
+import styles from './page.module.scss';
 
-const Variables = () => {
-  const router = useRouter();
+const VariablesPage = () => {
   return (
-    <>
-      <div>Variables</div>
-      <button onClick={() => router.push('/')}>back to main</button>
-    </>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Variables</h1>
+      <Variables />
+    </div>
   );
 };
 
-export default Variables;
+export default VariablesPage;

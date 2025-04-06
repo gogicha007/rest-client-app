@@ -100,7 +100,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
             {errors?.password?.message}
           </p>
         </div>
-        <button type="submit" disabled={!isValid}>
+        <button className="button" type="submit" disabled={!isValid}>
           {t(authType)}
         </button>
       </form>

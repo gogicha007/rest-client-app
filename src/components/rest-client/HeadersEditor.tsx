@@ -58,7 +58,7 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({ headers, onChange }) => {
             />
             <button
               onClick={() => handleRemoveHeader(key)}
-              className={s.removeHeader}
+              className={`button ${s.removeHeader}`}
             >
               Remove
             </button>
@@ -80,7 +80,10 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({ headers, onChange }) => {
           placeholder="Header value"
           className={s.headerValue}
         />
-        <button onClick={handleAddHeader} className={s.addHeaderBtn}>
+        <button
+          onClick={handleAddHeader}
+          className={`button ${s.addHeaderBtn}`}
+        >
           Add Header
         </button>
       </div>
