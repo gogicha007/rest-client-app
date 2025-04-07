@@ -56,7 +56,6 @@ describe('SignUp Component', () => {
 
     render(<SignUp />);
 
-    // Assert that the AuthForm component is rendered
     expect(screen.getByText('AuthForm Component')).toBeInTheDocument();
     expect(mockPush).not.toHaveBeenCalled();
   });
@@ -66,7 +65,6 @@ describe('SignUp Component', () => {
 
     const { container } = render(<SignUp />);
 
-    // Assert that nothing is rendered
     expect(container.firstChild).toBeNull();
     expect(mockPush).toHaveBeenCalledWith('/');
   });
