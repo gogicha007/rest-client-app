@@ -29,12 +29,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
   });
   const router = useRouter();
 
-  useEffect(() => {
-    if (error) {
-      throw new Error(error);
-    }
-  }, [error]);
-
   const handleAuth = async (
     authFunction: (
       email: string,
@@ -104,6 +98,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
           {t(authType)}
         </button>
       </form>
+      {error && (
+        <h2 className={styles['auth__credentials-error']}>
+          {`Error: ${error.split('Error')[1]?.replace(/[()]/g, '')}`}
+        </h2>
+      )}
       {loading && <Loader />}
     </div>
   );
