@@ -9,6 +9,11 @@ const AuthBar = () => {
   const tA = useTranslations('AuthForm');
   const router = useRouter();
 
+  const signOut = () => {
+    logout();
+    router.push('/');
+  };
+
   return (
     <div className={styles['auth-bar']}>
       {!currentUser && (
@@ -23,7 +28,7 @@ const AuthBar = () => {
       )}
       {currentUser && (
         <div className={styles['auth-bar__logout']}>
-          <button className="button" onClick={() => logout()}>
+          <button className="button" onClick={signOut}>
             {tA('logout')}, {currentUser.email}
           </button>
         </div>
