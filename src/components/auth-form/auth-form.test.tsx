@@ -5,7 +5,6 @@ import AuthForm from './authForm';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { login } from '../../utils/firebaseConfig';
-import { UserCredential } from 'firebase/auth';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
@@ -36,62 +35,42 @@ describe('AuthForm Component', () => {
     jest.clearAllMocks();
   });
 
-  // it('renders the form with email and password fields', () => {
-  //   render(<AuthForm authType="login" />);
+  it('renders the form with email and password fields', () => {
+    render(<AuthForm authType="login" />);
 
-  //   expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-  //   expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-  //   expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
-  // });
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+  });
 
-  // it('disables the submit button when the form is invalid', () => {
-  //   render(<AuthForm authType="login" />);
+  it('disables the submit button when the form is invalid', () => {
+    render(<AuthForm authType="login" />);
 
-  //   const submitButton = screen.getByRole('button', { name: /login/i });
-  //   expect(submitButton).toBeDisabled();
-  // });
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    expect(submitButton).toBeDisabled();
+  });
 
-  // it('enables the submit button when the form is valid', async () => {
-  //   render(<AuthForm authType="login" />);
+  it('enables the submit button when the form is valid', async () => {
+    render(<AuthForm authType="login" />);
 
-  //   fireEvent.change(screen.getByLabelText(/email/i), {
-  //     target: { value: 'test@example.com' },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/password/i), {
-  //     target: { value: 'Password!23' },
-  //   });
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { value: 'test@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: 'Password!23' },
+    });
 
-  //   const submitButton = screen.getByRole('button', { name: /login/i });
-  //   await waitFor(() => {
-  //     expect(submitButton).not.toBeDisabled();
-  //   });
-  // });
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    await waitFor(() => {
+      expect(submitButton).not.toBeDisabled();
+    });
+  });
 
   it('calls the appropriate auth function on form submission', async () => {
-    const mockUserCredential: UserCredential = {
-      user: {
-        uid: '12345',
-        email: 'test@example.com',
-        displayName: 'Test User',
-        photoURL: null,
-        emailVerified: true,
-        phoneNumber: null,
-        isAnonymous: false,
-        metadata: {},
-        providerData: [],
-        getIdToken: jest.fn(() => Promise.resolve('mocked-token')),
-        // getIdTokenResult: jest.fn(() => Promise.resolve({} as any)),
-        reload: jest.fn(() => Promise.resolve()),
-        delete: jest.fn(() => Promise.resolve()),
-        refreshToken: 'mocked-refresh-token',
-        tenantId: 'mocked-tenant-id',
-        toJSON: jest.fn(() => ({})),
-        providerId: 'mocked-provider-id',
-      },
-      providerId: null,
-      operationType: 'signIn',
-    };
-    (login as jest.Mock).mockResolvedValueOnce(mockUserCredential);
+    const mockLogin = jest.fn<() => Promise<string>>();
+
+    (login as jest.Mock).mockImplementation(mockLogin);
+    mockLogin.mockResolvedValueOnce('loggedin');
 
     render(<AuthForm authType="login" />);
 
@@ -104,47 +83,59 @@ describe('AuthForm Component', () => {
 
     const submitButton = screen.getByRole('button', { name: /login/i });
 
-    await waitFor(()=>expect(submitButton).not.toBeDisabled());
+    await waitFor(() => expect(submitButton).not.toBeDisabled());
     await waitFor(() => fireEvent.click(submitButton));
     await waitFor(() => {
-      expect(login).toHaveBeenCalledWith('test@example.com', 'Password1?3');
+      expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'Password1?3');
     });
   });
 
-  // it('displays an error message when an error occurs', async () => {
-  //   const mockLogin = jest.fn().mockRejectedValue(new Error('Invalid credentials'));
-  //   jest.mocked(require('@/utils/firebaseConfig').login).mockImplementation(mockLogin);
+  it('displays an error message when an error occurs', async () => {
+    const mockLogin = jest
+      .fn<() => Promise<never>>()
+      .mockRejectedValue(new Error('Invalid credentials'));
 
-  //   render(<AuthForm authType="login" />);
+    (login as jest.Mock).mockImplementation(mockLogin);
+    mockLogin.mockRejectedValueOnce('error');
 
-  //   fireEvent.change(screen.getByLabelText(/email/i), {
-  //     target: { value: 'test@example.com' },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/password/i), {
-  //     target: { value: 'password123' },
-  //   });
+    render(<AuthForm authType="login" />);
 
-  //   const submitButton = screen.getByRole('button', { name: /login/i });
-  //   fireEvent.click(submitButton);
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { value: 'test@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: 'Password1?3' },
+    });
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText(/error: invalid credentials/i)).toBeInTheDocument();
-  //   });
-  // });
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    await waitFor(() => expect(submitButton).not.toBeDisabled());
+    await waitFor(() => fireEvent.click(submitButton));
 
-  // it('renders the Loader component when loading is true', async () => {
-  //   render(<AuthForm authType="login" />);
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+  });
 
-  //   fireEvent.change(screen.getByLabelText(/email/i), {
-  //     target: { value: 'test@example.com' },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/password/i), {
-  //     target: { value: 'password123' },
-  //   });
+  it('renders the Loader component when loading is true', async () => {
+    (login as jest.Mock).mockImplementation(
+      () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+    );
 
-  //   const submitButton = screen.getByRole('button', { name: /login/i });
-  //   fireEvent.click(submitButton);
+    render(<AuthForm authType="login" />);
 
-  //   expect(screen.getByTestId('loader')).toBeInTheDocument();
-  // });
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { value: 'test@example.com' },
+    });
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: 'Password1?3' },
+    });
+
+    const submitButton = screen.getByRole('button', { name: /login/i });
+    await waitFor(() => expect(submitButton).not.toBeDisabled());
+    await waitFor(() => fireEvent.click(submitButton));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('loader')).toBeInTheDocument();
+    });
+  });
 });
