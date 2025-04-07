@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { register as firebaseRegister, login } from '@/utils/firebaseConfig';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { schema, FormFields } from './validation';
 import Loader from '../loader/loader';
 import { UserCredential } from 'firebase/auth';
