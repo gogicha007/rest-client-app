@@ -37,6 +37,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
     email: string,
     password: string
   ) => {
+    console.log('testing handle auth')
     setLoading(true);
     try {
       await authFunction(email, password);
