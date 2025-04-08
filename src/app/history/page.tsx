@@ -6,9 +6,12 @@ import { getRequestHistory, auth } from '@/utils/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
 import { RequestData } from '@/types/request';
+type RequestDataWithLink = RequestData & { link: string };
 
 const History = () => {
-  const [requestHistory, setRequestHistory] = useState<RequestData[]>([]);
+  const [requestHistory, setRequestHistory] = useState<RequestDataWithLink[]>(
+    []
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,14 +62,16 @@ const History = () => {
         <ul>
           {requestHistory.map((request, index) => (
             <li key={index}>
-              <a href="#">
+              <a href={request.link}>
                 {request.url} <br />
               </a>
             </li>
           ))}
         </ul>
       )}
-      <button className="button" onClick={() => router.push('/')}>back to main</button>
+      <button className="button" onClick={() => router.push('/')}>
+        back to main
+      </button>
     </div>
   );
 };

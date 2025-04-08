@@ -1,8 +1,10 @@
+'use client'
 import React, { useState } from 'react';
 import { RequestData, ResponseData } from '../../types/request';
 import s from './RestClient.module.scss';
 import { saveRequestData } from '@/utils/firebaseConfig';
 import { getAuth } from 'firebase/auth';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 interface ResponseSectionProps {
   requestData: RequestData;
@@ -12,6 +14,9 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const currentPath = usePathname();
+  const queryParams = useSearchParams()
 
   const sendRequest = async () => {
     if (!requestData.url) {
@@ -55,8 +60,9 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
       // Save request data to Firebase
       const auth = getAuth();
       const user = auth.currentUser;
+      const url = `${currentPath}?${queryParams}`
       if (user) {
-        await saveRequestData(user.uid, requestData);
+        await saveRequestData(user.uid, {...requestData, link: url});
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
