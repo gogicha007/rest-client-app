@@ -6,9 +6,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
-import { RequestData } from '@/types/request';
-
-type RequestDataWithLink = RequestData & { link: string}
+import { RequestDataWithLink } from '@/types/request';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -36,14 +34,17 @@ const logout = () => {
   return signOut(auth);
 };
 
-const saveRequestData = async (userId: string, requestData: RequestDataWithLink) => {
+const saveRequestData = async (
+  userId: string,
+  requestData: RequestDataWithLink
+) => {
   try {
-    const history = await getRequestHistory(userId)
-    const urls = history.map((val)=>val.url)
-    const checkUrl = urls.includes(requestData.url)
+    const history = await getRequestHistory(userId);
+    const urls = history.map((val) => val.url);
+    const checkUrl = urls.includes(requestData.url);
     if (checkUrl) {
-      console.log('does not saved because its already saved')
-      return
+      console.log('does not saved because its already saved');
+      return;
     }
     const docRef = await addDoc(
       collection(db, 'users', userId, 'requests'),
@@ -68,7 +69,7 @@ const getRequestHistory = async (userId: string) => {
       headers: doc.data().headers,
       method: doc.data().method,
       url: doc.data().url,
-      link: doc.data().link
+      link: doc.data().link,
     }));
     return history;
   } catch (error) {

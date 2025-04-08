@@ -11,3 +11,7 @@ export interface ResponseData {
   headers: Record<string, string>;
   body: string;
 }
+
+export interface RequestDataWithLink extends RequestData {
+  link: string;
+}
