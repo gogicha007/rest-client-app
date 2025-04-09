@@ -4,17 +4,11 @@ import React from 'react';
 import { RestClient } from '@/components/rest-client';
 import styles from './page.module.scss';
 
-interface RestClientLayoutProps {
-  params: {
-    method: string;
-  };
-}
-
-const RestClientLayout: React.FC<RestClientLayoutProps> = ({ params }) => {
+const RestClientLayout: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>REST Client</h1>
-      <RestClient initialMethod={params.method} />
+      <RestClient />
     </div>
   );
 };

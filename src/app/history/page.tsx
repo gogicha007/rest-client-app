@@ -1,43 +1,36 @@
 'use client';
-import styles from './page.module.css';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getRequestHistory, auth } from '@/utils/firebaseConfig';
+import { auth } from '@/utils/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
-import { RequestData } from '@/types/request';
+
+const LazyLoadedHistoryContent = dynamic(() => import('./HistoryContent'), {
+  ssr: false,
+  loading: () => <Loader />,
+});
 
 const History = () => {
-  const [requestHistory, setRequestHistory] = useState<RequestData[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const checkAuth = () => {
       setLoading(true);
-      try {
-        onAuthStateChanged(auth, async (user) => {
-          if (user) {
-            const userId = user.uid;
-            const history = await getRequestHistory(userId);
-            setRequestHistory(history);
-          } else {
-            setError('User not authenticated');
-          }
-          setLoading(false);
-        });
-        return () => {
-          const unsubscribeAuth = onAuthStateChanged(auth, () => {});
-          unsubscribeAuth();
-        };
-      } catch (err) {
-        console.log(err);
-        setError('Failed to fetch history');
-      }
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setIsAuthenticated(true);
+        } else {
+          setError('User not authenticated');
+        }
+        setLoading(false);
+      });
     };
-    fetchHistory();
+    checkAuth();
   }, []);
 
   if (loading) {
@@ -45,32 +38,17 @@ const History = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div>
+        <p>{error}</p>
+        <button className="button" onClick={() => router.push('/')}>
+          back to main
+        </button>
+      </div>
+    );
   }
 
-  return (
-    <div className={styles.history}>
-      <h1>History</h1>
-      {requestHistory.length === 0 ? (
-        <div>
-          <p>No request history found.</p>
-        </div>
-      ) : (
-        <ul>
-          {requestHistory.map((request, index) => (
-            <li key={index}>
-              <a href="#">
-                {request.url} <br />
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-      <button className="button" onClick={() => router.push('/')}>
-        back to main
-      </button>
-    </div>
-  );
+  return isAuthenticated ? <LazyLoadedHistoryContent /> : null;
 };
 
 export default History;

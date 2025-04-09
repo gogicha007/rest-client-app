@@ -6,7 +6,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
-import { RequestData } from '@/types/request';
+import { RequestDataWithLink } from '@/types/request';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -34,7 +34,10 @@ const logout = () => {
   return signOut(auth);
 };
 
-const saveRequestData = async (userId: string, requestData: RequestData) => {
+const saveRequestData = async (
+  userId: string,
+  requestData: RequestDataWithLink
+) => {
   try {
     const history = await getRequestHistory(userId);
     const urls = history.map((val) => val.url);
@@ -66,6 +69,7 @@ const getRequestHistory = async (userId: string) => {
       headers: doc.data().headers,
       method: doc.data().method,
       url: doc.data().url,
+      link: doc.data().link,
     }));
     return history;
   } catch (error) {

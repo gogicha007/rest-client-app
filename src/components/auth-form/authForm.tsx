@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { register as firebaseRegister, login } from '@/utils/firebaseConfig';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { schema, FormFields } from './validation';
 import Loader from '../loader/loader';
 import { UserCredential } from 'firebase/auth';
@@ -28,12 +28,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
     mode: 'onChange',
   });
   const router = useRouter();
-
-  useEffect(() => {
-    if (error) {
-      throw new Error(error);
-    }
-  }, [error]);
 
   const handleAuth = async (
     authFunction: (
@@ -104,6 +98,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ authType }) => {
           {t(authType)}
         </button>
       </form>
+      {error && (
+        <h2 className={styles['auth__credentials-error']}>
+          {`Error: ${error.split('Error')[1]?.replace(/[()]/g, '')}`}
+        </h2>
+      )}
       {loading && <Loader />}
     </div>
   );

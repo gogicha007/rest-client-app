@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Variable {
+export interface Variable {
   key: string;
   value: string;
 }
