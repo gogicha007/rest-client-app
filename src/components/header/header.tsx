@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import styles from './header.module.scss';
 import LocaleSwitcher from '../locale-switcher/LocaleSwitcher';
 import Logo from '../../../public/logo.svg';
@@ -13,7 +14,7 @@ const Header = () => {
         <Link href="/" className={styles.navLink}>
           Home
         </Link>
-        <Link href="/rest-client" className={styles.navLink}>
+        <Link href="/rest-client/get" className={styles.navLink}>
           REST Client
         </Link>
         <Link href="/variables" className={styles.navLink}>

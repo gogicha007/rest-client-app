@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import s from './RestClient.module.scss';
 
@@ -15,17 +17,17 @@ const HTTP_METHODS = [
   'HEAD',
   'OPTIONS',
   'TRACE',
-];
+] as const;
 
 const MethodSelector: React.FC<MethodSelectorProps> = ({ value, onChange }) => {
   const handleMethodChange = (method: string) => {
-    onChange(method);
+    onChange(method.toUpperCase());
   };
 
   return (
     <select
       className={s.methodSelector}
-      value={value}
+      value={value.toUpperCase()}
       onChange={(e) => handleMethodChange(e.target.value)}
     >
       {HTTP_METHODS.map((method) => (

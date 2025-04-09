@@ -36,12 +36,12 @@ const logout = () => {
 
 const saveRequestData = async (userId: string, requestData: RequestData) => {
   try {
-    const history = await getRequestHistory(userId)
-    const urls = history.map((val)=>val.url)
-    const checkUrl = urls.includes(requestData.url)
+    const history = await getRequestHistory(userId);
+    const urls = history.map((val) => val.url);
+    const checkUrl = urls.includes(requestData.url);
     if (checkUrl) {
-      console.log('does not saved because its already saved')
-      return
+      console.log('does not saved because its already saved');
+      return;
     }
     const docRef = await addDoc(
       collection(db, 'users', userId, 'requests'),

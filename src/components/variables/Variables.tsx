@@ -1,9 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   loadVariablesFromLocalStorage,
   saveVariableToLocalStorage,
@@ -11,13 +9,12 @@ import {
 } from '@/store//variablesThunks';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import s from './Variables.module.scss';
+import { selectVariables } from '@/store/variablesSlice';
 
 export const Variables = () => {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
-  const variables = useSelector(
-    (state: RootState) => state.variables.variables
-  );
+  const variables = useAppSelector(selectVariables);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

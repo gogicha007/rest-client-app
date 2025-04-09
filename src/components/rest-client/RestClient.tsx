@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import MethodSelector from './MethodSelector';
 import UrlInput from './UrlInput';
 import HeadersEditor from './HeadersEditor';
@@ -10,18 +12,29 @@ import { RequestData } from '../../types/request';
 import s from './RestClient.module.scss';
 
 const RestClient: React.FC = () => {
-  const params = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const methodFromPath = pathname.split('/').pop()?.toUpperCase() || 'GET';
+
   const [requestData, setRequestData] = useState<RequestData>({
-    method: (params?.method as string) || 'GET',
+    method: methodFromPath,
     url: '',
     headers: {},
     body: '',
   });
 
-  // Здесь происходит восстановление значений по URL адресу из base64 формата
   useEffect(() => {
-    // Восстанавливаем состояние URL
+    if (requestData.method && requestData.method !== methodFromPath) {
+      const currentParams = new URLSearchParams(searchParams.toString());
+      router.push(
+        `/rest-client/${requestData.method.toLowerCase()}?${currentParams.toString()}`
+      );
+    }
+  }, [requestData.method, methodFromPath, router, searchParams]);
+
+  useEffect(() => {
     const encodedUrl = searchParams.get('url');
     if (encodedUrl) {
       try {
@@ -32,7 +45,6 @@ const RestClient: React.FC = () => {
       }
     }
 
-    // Восстанавливаем состояние тела запроса (json)
     const encodedBody = searchParams.get('body');
     if (encodedBody) {
       try {
@@ -43,7 +55,6 @@ const RestClient: React.FC = () => {
       }
     }
 
-    // Восстанавливаем состояние заголовков запроса
     const headers: Record<string, string> = {};
     searchParams.forEach((value: string, key: string) => {
       if (key !== 'url' && key !== 'body') {
@@ -55,12 +66,11 @@ const RestClient: React.FC = () => {
     }
   }, [searchParams]);
 
-  // Изменяем URL адресс в зависимости от значений, подставляя их в качестве base64
   const handleRequestDataChange = (newData: Partial<RequestData>) => {
     const updatedData = { ...requestData, ...newData };
     setRequestData(updatedData);
 
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams.toString());
     if (updatedData.url) {
       params.set('url', btoa(updatedData.url));
     }
@@ -74,7 +84,7 @@ const RestClient: React.FC = () => {
   };
 
   return (
-    <div className={s.restCclient}>
+    <div className={s.restClient}>
       <div className={s.requestSection}>
         <div className={s.methodUrlRow}>
           <MethodSelector

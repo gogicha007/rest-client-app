@@ -1,8 +1,16 @@
+'use client';
+
 import React, { useState } from 'react';
 import { RequestData, ResponseData } from '../../types/request';
 import s from './RestClient.module.scss';
 import { saveRequestData } from '@/utils/firebaseConfig';
 import { getAuth } from 'firebase/auth';
+import { useAppSelector } from '@/store/hooks';
+import { selectVariables } from '@/store/variablesSlice';
+import {
+  replaceTemplateVariables,
+  replaceVariablesInObject,
+} from '@/utils/utils';
 
 interface ResponseSectionProps {
   requestData: RequestData;
@@ -12,8 +20,12 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const variables = useAppSelector(selectVariables);
 
   const sendRequest = async () => {
+    console.log('request >', requestData);
+    console.log('variables >', variables);
+
     if (!requestData.url) {
       setError('Please enter a URL');
       return;
@@ -23,14 +35,30 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
     setError(null);
 
     try {
-      const response = await fetch(requestData.url, {
-        method: requestData.method,
-        headers: requestData.headers,
-        body:
-          requestData.method !== 'GET' && requestData.body
-            ? requestData.body
-            : undefined,
-      });
+      let bodyToSend;
+
+      try {
+        const jsonData = JSON.parse(requestData.body);
+        bodyToSend = JSON.stringify(
+          replaceVariablesInObject(jsonData, variables),
+          null,
+          2
+        );
+      } catch {
+        bodyToSend = replaceTemplateVariables(requestData.body, variables);
+      }
+
+      const response = await fetch(
+        replaceTemplateVariables(requestData.url, variables),
+        {
+          method: requestData.method,
+          headers: replaceVariablesInObject(requestData.headers, variables),
+          body:
+            requestData.method !== 'GET' && requestData.body
+              ? bodyToSend
+              : undefined,
+        }
+      );
 
       const headers: Record<string, string> = {};
       response.headers.forEach((value, key) => {
@@ -39,10 +67,12 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
 
       const body = await response.text();
       let parsedBody = body;
+
       try {
-        parsedBody = JSON.stringify(JSON.parse(body), null, 2);
+        const jsonData = JSON.parse(body);
+        parsedBody = JSON.stringify(jsonData, null, 2);
       } catch {
-        // Todo: обработать некорректный ответ от сервера
+        parsedBody = body;
       }
 
       setResponse({
