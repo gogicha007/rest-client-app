@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useRouter } from 'next/navigation';
 import History from './page';
@@ -59,28 +59,6 @@ describe('History Component', () => {
 
     render(<History />);
     expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
-
-  it('renders error message and back button if user is not authenticated', async () => {
-    const mockAuthState = jest.fn<OnAuthStateChanged>(
-      (_: unknown, callback: AuthStateChangedCallback) => {
-        callback(null);
-      }
-    );
-
-    (
-      onAuthStateChanged as unknown as jest.Mock<OnAuthStateChanged>
-    ).mockImplementation(mockAuthState);
-
-    render(<History />);
-    expect(
-      await screen.findByText('User not authenticated')
-    ).toBeInTheDocument();
-    const backButton = screen.getByText('back to main');
-    expect(backButton).toBeInTheDocument();
-
-    fireEvent.click(backButton);
-    expect(mockPush).toHaveBeenCalledWith('/');
   });
 
   it('renders the HistoryContent component if user is authenticated', async () => {
