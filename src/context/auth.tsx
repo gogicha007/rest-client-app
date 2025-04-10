@@ -5,6 +5,7 @@ import { auth } from '@/utils/firebaseConfig';
 import { isTokenExpired } from '@/utils/authUtils';
 import { useRouter, usePathname } from 'next/navigation';
 import { logout } from '@/utils/firebaseConfig';
+import { setCookie } from 'nookies';
 
 export const AuthContext = createContext<{
   currentUser: User | null;
@@ -32,6 +33,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         const expired = await isTokenExpired(user);
         if (!expired) {
           setCurrentUser(user);
+          const token = await user.getIdToken();
+          setCookie(null, 'authToken', token, {
+            path: '/',
+            maxAge: 60 * 60 * 24,
+          });
         } else {
           console.log('token expired');
           await logout();

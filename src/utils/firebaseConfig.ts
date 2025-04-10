@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
 import { RequestDataWithLink } from '@/types/request';
+import { destroyCookie } from 'nookies';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -30,8 +31,17 @@ const login = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-const logout = () => {
-  return signOut(auth);
+const logout = async () => {
+  try {
+    await signOut(auth);
+
+    destroyCookie(null, 'authToken', { path: '/' });
+
+    console.log('user logged out and token removed from cookies');
+  } catch (error) {
+    console.log('error during logout:', error);
+    throw error;
+  }
 };
 
 const saveRequestData = async (
