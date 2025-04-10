@@ -1,12 +1,12 @@
 .modal {
   position: fixed;
-  z-index: 1000; 
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; 
-  background-color: rgba(0, 0, 0, 0.5); 
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .loader {
@@ -14,7 +14,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   border: 10px solid #f3f3f3;
   border-radius: 50%;
   border-top: 10px solid #2980b9;
@@ -23,7 +23,7 @@
   border-left: 10px solid #f5ba1a;
   width: 70px;
   height: 70px;
-  animation: spin 1.5s linear infinite; 
+  animation: spin 1.5s linear infinite;
 }
 
 @keyframes spin {

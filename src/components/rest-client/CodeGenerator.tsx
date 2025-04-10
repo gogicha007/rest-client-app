@@ -1,8 +1,13 @@
+'use client';
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { RequestData } from '../../types/request';
 import * as codegen from 'postman-code-generators';
 import { Request } from 'postman-collection';
 import s from './RestClient.module.scss';
+import { replaceTemplateVariables } from '@/utils/utils';
+import { useAppSelector } from '@/store/hooks';
+import { selectVariables } from '@/store/variablesSlice';
 
 interface CodeGeneratorProps {
   requestData: RequestData;
@@ -19,6 +24,7 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
     language: 'csharp',
   });
   const [generatedCode, setGeneratedCode] = useState<string>('');
+  const variables = useAppSelector(selectVariables);
 
   const getCodegenOptions = codegen
     .getLanguageList()
@@ -67,11 +73,11 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
           console.error('Error generating code:', error);
           setGeneratedCode('Error generating code. Please try again.');
         } else {
-          setGeneratedCode(snippet);
+          setGeneratedCode(replaceTemplateVariables(snippet, variables));
         }
       }
     );
-  }, [selectedLanguage, requestData]);
+  }, [selectedLanguage, requestData, variables]);
 
   useEffect(() => {
     generateCode();

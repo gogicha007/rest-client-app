@@ -49,7 +49,7 @@ describe('History Component', () => {
   it('renders the loader while checking authentication', () => {
     const mockAuthState = jest.fn<OnAuthStateChanged>(
       (_: unknown, callback: AuthStateChangedCallback) => {
-        callback({uid: '123'});
+        callback({ uid: '123' });
       }
     );
 

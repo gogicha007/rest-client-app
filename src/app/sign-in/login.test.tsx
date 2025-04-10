@@ -14,16 +14,16 @@ jest.mock('@/context/auth', () => ({
 }));
 
 jest.mock('@/components/auth-form/authForm', () => {
-    const MockAuthForm = () => <div>AuthForm Component</div>;
-    MockAuthForm.displayName = 'MockAuthForm';
-    return MockAuthForm;
-  });
-  
-  jest.mock('@/components/loader/loader', () => {
-    const MockLoader = () => <div data-testid="loader">Loader Component</div>;
-    MockLoader.displayName = 'MockLoader';
-    return MockLoader;
-  });
+  const MockAuthForm = () => <div>AuthForm Component</div>;
+  MockAuthForm.displayName = 'MockAuthForm';
+  return MockAuthForm;
+});
+
+jest.mock('@/components/loader/loader', () => {
+  const MockLoader = () => <div data-testid="loader">Loader Component</div>;
+  MockLoader.displayName = 'MockLoader';
+  return MockLoader;
+});
 
 describe('SignIn Component', () => {
   const mockPush = jest.fn();
@@ -34,17 +34,22 @@ describe('SignIn Component', () => {
   });
 
   it('renders the Loader component when loading is true', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: null, loading: true });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: null,
+      loading: true,
+    });
 
     render(<SignIn />);
-
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
     expect(screen.getByText('Loader Component')).toBeInTheDocument();
     expect(mockPush).not.toHaveBeenCalled();
   });
   it('redirects to the home page if the user is logged in', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: { uid: '123' }, loading: false });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: { uid: '123' },
+      loading: false,
+    });
 
     render(<SignIn />);
 
@@ -52,7 +57,10 @@ describe('SignIn Component', () => {
   });
 
   it('renders the AuthForm component when not loading and no user is logged in', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: null, loading: false });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: null,
+      loading: false,
+    });
 
     render(<SignIn />);
 
@@ -61,7 +69,10 @@ describe('SignIn Component', () => {
   });
 
   it('does not render anything if the user is logged in and loading is false', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: { uid: '123' }, loading: false });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: { uid: '123' },
+      loading: false,
+    });
 
     const { container } = render(<SignIn />);
 

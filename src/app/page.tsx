@@ -25,7 +25,7 @@ export default function Home() {
 
   const MenuLinks = () => (
     <div className={styles.home__menu}>
-      <Link href="/rest-client">{tH('restClient')}</Link>
+      <Link href="/rest-client/get">{tH('restClient')}</Link>
       <Link href="/history">{tH('history')}</Link>
       <Link href="/variables">{tH('variables')}</Link>
     </div>

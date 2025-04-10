@@ -34,7 +34,10 @@ describe('SignUp Component', () => {
   });
 
   it('renders the Loader component when loading is true', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: null, loading: true });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: null,
+      loading: true,
+    });
 
     render(<SignUp />);
 
@@ -44,7 +47,10 @@ describe('SignUp Component', () => {
   });
 
   it('redirects to the home page if the user is logged in', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: { uid: '123' }, loading: false });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: { uid: '123' },
+      loading: false,
+    });
 
     render(<SignUp />);
 
@@ -52,7 +58,10 @@ describe('SignUp Component', () => {
   });
 
   it('renders the AuthForm component when not loading and no user is logged in', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: null, loading: false });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: null,
+      loading: false,
+    });
 
     render(<SignUp />);
 
@@ -61,7 +70,10 @@ describe('SignUp Component', () => {
   });
 
   it('does not render anything if the user is logged in and loading is false', () => {
-    (useAuth as jest.Mock).mockReturnValue({ currentUser: { uid: '123' }, loading: false });
+    (useAuth as jest.Mock).mockReturnValue({
+      currentUser: { uid: '123' },
+      loading: false,
+    });
 
     const { container } = render(<SignUp />);
 
