@@ -19,5 +19,43 @@
     "password": "Password",
     "logout": "Sign Out",
     "error": "An unexpected error occurred."
+  },
+  "RestClientPage": {
+    "Title": "REST Client",
+    "UrlInput": {
+      "placeholder": "Enter endpoint URL"
+    },
+    "HeadersEditor": {
+      "Title": "Headers",
+      "headerName_placeholder": "Header name",
+      "headerValue_placeholder": "Header value",
+      "addHeaderButton": "Add Header",
+      "removeHeaderButton": "Remove"
+    },
+    "RequestBodyEditor": {
+      "Title": "Request Body",
+      "Button": "Format JSON",
+      "placeholder": "Enter request body (JSON)",
+      "errorMessage": "Invalid JSON format"
+    },
+    "CodeGenerator": {
+      "Title": "Generated Code",
+      "errorMessage": "Error generating code. Please try again."
+    },
+    "ResponseSection": {
+      "Title": "Response",
+      "button_sending": "Sending",
+      "button_send": "Send Request",
+      "headers_title": "Headers",
+      "body_title": "Body"
+    }
+  },
+  "VariablesPage": {
+    "Title": "Variables",
+    "add_variable": "Add Variable",
+    "placeholder_key": "Key...",
+    "placeholder_data": "Data...",
+    "button": "Add",
+    "current_variables": "Current Variables"
   }
 }
