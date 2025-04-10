@@ -1,34 +1,39 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { jwtVerify, createRemoteJWKSet } from 'jose';
 
-const SECRET_KEY = process.env.JWT_SECRET_KEY || 'querymasters';
+const JWKS = createRemoteJWKSet(
+  new URL(
+    'https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com'
+  )
+);
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get('authToken')?.value;
 
   if (!token) {
     return NextResponse.redirect(new URL('/', request.nextUrl.origin));
   }
+
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const { payload } = await jwtVerify(token, JWKS, {
+      issuer: `https://securetoken.google.com/${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}`,
+      audience: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    });
+
     const currentTime = Math.floor(Date.now() / 1000);
 
-    if (
-      typeof decoded === 'object' &&
-      'exp' in decoded &&
-      decoded.exp !== undefined &&
-      decoded.exp < currentTime
-    ) {
+    if (payload.exp && payload.exp < currentTime) {
       return NextResponse.redirect(new URL('/', request.nextUrl.origin));
     }
+    
     return NextResponse.next();
   } catch (err) {
-    console.log('invalid token:', err )
+    console.log('invalid token:', err);
     return NextResponse.redirect(new URL('/', request.nextUrl.origin));
   }
 }
 
 export const config = {
-  matcher: ['/history', '/variables','/rest-client/:path*'],
+  matcher: ['/history', '/variables', '/rest-client/:path*'],
 };
