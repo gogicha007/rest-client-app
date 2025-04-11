@@ -21,29 +21,29 @@
     "error": "An unexpected error occurred."
   },
   "RestClientPage": {
-    "Title": "REST Client",
-    "UrlInput": {
+    "title": "REST Client",
+    "urlInput": {
       "placeholder": "Enter endpoint URL"
     },
     "HeadersEditor": {
-      "Title": "Headers",
+      "title": "Headers",
       "headerName_placeholder": "Header name",
       "headerValue_placeholder": "Header value",
       "addHeaderButton": "Add Header",
       "removeHeaderButton": "Remove"
     },
     "RequestBodyEditor": {
-      "Title": "Request Body",
-      "Button": "Format JSON",
+      "title": "Request Body",
+      "button": "Format JSON",
       "placeholder": "Enter request body (JSON)",
       "errorMessage": "Invalid JSON format"
     },
     "CodeGenerator": {
-      "Title": "Generated Code",
+      "title": "Generated Code",
       "errorMessage": "Error generating code. Please try again."
     },
     "ResponseSection": {
-      "Title": "Response",
+      "title": "Response",
       "button_sending": "Sending",
       "button_send": "Send Request",
       "headers_title": "Headers",
@@ -51,11 +51,11 @@
     }
   },
   "HistoryPage": {
-    "Title": "History",
-    "NoHistoryFound": "No request history found."
+    "title": "History",
+    "noHistoryFound": "No request history found."
   },
   "VariablesPage": {
-    "Title": "Variables",
+    "title": "Variables",
     "add_variable": "Add Variable",
     "placeholder_key": "Key...",
     "placeholder_data": "Data...",

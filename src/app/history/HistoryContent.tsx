@@ -68,10 +68,10 @@ const HistoryContent = () => {
 
   return (
     <div className={styles.history}>
-      <h1>{tHist('Title')}</h1>
+      <h1>{tHist('title')}</h1>
       {requestHistory.length === 0 ? (
         <div>
-          <p>{tHist('NoHistoryFound')}</p>
+          <p>{tHist('noHistoryFound')}</p>
         </div>
       ) : (
         <ul>

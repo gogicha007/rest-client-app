@@ -21,29 +21,29 @@
     "error": "Ein unerwarteter Fehler ist aufgetreten."
   },
   "RestClientPage": {
-    "Title": "REST-Client",
-    "UrlInput": {
+    "title": "REST-Client",
+    "urlInput": {
       "placeholder": "Endpunkt-URL eingeben"
     },
     "HeadersEditor": {
-      "Title": "Header",
+      "title": "Header",
       "headerName_placeholder": "Header-Name",
       "headerValue_placeholder": "Header-Wert",
       "addHeaderButton": "Header hinzufügen",
       "removeHeaderButton": "Entfernen"
     },
     "RequestBodyEditor": {
-      "Title": "Anfrageinhalt",
-      "Button": "JSON formatieren",
+      "title": "Anfrageinhalt",
+      "button": "JSON formatieren",
       "placeholder": "Anfrageinhalt eingeben (JSON)",
       "errorMessage": "Ungültiges JSON-Format"
     },
     "CodeGenerator": {
-      "Title": "Generierter Code",
+      "title": "Generierter Code",
       "errorMessage": "Fehler beim Generieren des Codes. Bitte versuchen Sie es erneut."
     },
     "ResponseSection": {
-      "Title": "Antwort",
+      "title": "Antwort",
       "button_sending": "Senden",
       "button_send": "Anfrage senden",
       "headers_title": "Header",
@@ -51,7 +51,7 @@
     }
   },
   "VariablesPage": {
-    "Title": "Variablen",
+    "title": "Variablen",
     "add_variable": "Variable hinzufügen",
     "placeholder_key": "Schlüssel...",
     "placeholder_data": "Daten...",
@@ -63,7 +63,7 @@
     "tryAgain": "Erneut versuchen"
   },
   "HistoryPage": {
-    "Title": "Verlauf",
-    "NoHistoryFound": "Kein Verlauf gefunden."
+    "title": "Verlauf",
+    "noHistoryFound": "Kein Verlauf gefunden."
   }
 }
