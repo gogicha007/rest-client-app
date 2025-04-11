@@ -12,7 +12,7 @@ export default function Error({
     <ErrorFallback
       error={error}
       reset={undefined}
-      header={`${tHist('Title')} Page error!`}
+      header={tHist('pageError')}
     />
   );
 }

@@ -1,6 +1,6 @@
 'use client';
-
 import ErrorFallback from '@/components/ErrorFallback';
+import { useTranslations } from 'next-intl';
 
 export default function Error({
   error,
@@ -9,7 +9,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  return (
-    <ErrorFallback error={error} reset={reset} header="Sign Up Page error!" />
-  );
+  const t = useTranslations('RegisterPage');
+  return <ErrorFallback error={error} reset={reset} header={t('pageError')} />;
 }

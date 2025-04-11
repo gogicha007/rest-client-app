@@ -12,6 +12,12 @@
     "history": "History",
     "variables": "Variables"
   },
+  "LoginPage": {
+    "pageError": "Sign In Page error!"
+  },
+  "RegisterPage": {
+    "pageError": "Sign Up Page error!"
+  },
   "AuthForm": {
     "login": "Sign In",
     "register": "Sign Up",
@@ -48,11 +54,14 @@
       "button_send": "Send Request",
       "headers_title": "Headers",
       "body_title": "Body"
-    }
+    },
+    "pageError": "REST-Client Page Error!"
   },
   "HistoryPage": {
     "title": "History",
-    "noHistoryFound": "No request history found."
+    "noHistoryFound": "No request history found.",
+    "userNotAuthenticated": "User not authenticated",
+    "pageError": "History Page Error!"
   },
   "VariablesPage": {
     "title": "Variables",
@@ -60,7 +69,8 @@
     "placeholder_key": "Key...",
     "placeholder_data": "Data...",
     "button": "Add",
-    "current_variables": "Current Variables"
+    "current_variables": "Current Variables",
+    "pageError": "Variables Page Error!"
   },
   "Buttons": {
     "toMain": "Back to main",

@@ -12,6 +12,12 @@
     "history": "Verlauf",
     "variables": "Variablen"
   },
+  "LoginPage": {
+    "pageError": "Anmeldeseitenfehler!"
+  },
+  "RegisterPage": {
+    "pageError": "Registrierungsseitenfehler!"
+  },
   "AuthForm": {
     "login": "Anmelden",
     "register": "Registrieren",
@@ -48,7 +54,14 @@
       "button_send": "Anfrage senden",
       "headers_title": "Header",
       "body_title": "Inhalt"
-    }
+    },
+    "pageError": "REST-Client-Seitenfehler!"
+  },
+  "HistoryPage": {
+    "title": "Verlauf",
+    "noHistoryFound": "Kein Verlauf gefunden.",
+    "userNotAuthenticated": "Benutzer nicht authentifiziert",
+    "pageError": "Verlaufsseitenfehler!"
   },
   "VariablesPage": {
     "title": "Variablen",
@@ -56,14 +69,11 @@
     "placeholder_key": "Schlüssel...",
     "placeholder_data": "Daten...",
     "button": "Hinzufügen",
-    "current_variables": "Aktuelle Variablen"
+    "current_variables": "Aktuelle Variablen",
+    "pageError": "Variablen-Seitenfehler!"
   },
   "Buttons": {
     "toMain": "Zurück zur Hauptseite",
     "tryAgain": "Erneut versuchen"
-  },
-  "HistoryPage": {
-    "title": "Verlauf",
-    "noHistoryFound": "Kein Verlauf gefunden."
   }
 }
