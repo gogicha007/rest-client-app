@@ -57,5 +57,13 @@
     "placeholder_data": "Daten...",
     "button": "Hinzufügen",
     "current_variables": "Aktuelle Variablen"
+  },
+  "Buttons": {
+    "toMain": "Zurück zur Hauptseite",
+    "tryAgain": "Erneut versuchen"
+  },
+  "HistoryPage": {
+    "Title": "Verlauf",
+    "NoHistoryFound": "Kein Verlauf gefunden."
   }
 }

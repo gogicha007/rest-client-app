@@ -7,6 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
 import { RequestDataWithLink } from '@/types/request';
 import { handleError } from '@/utils/errorHandler';
+import { useTranslations } from 'next-intl';
 
 const HistoryContent = () => {
   const [requestHistory, setRequestHistory] = useState<RequestDataWithLink[]>(
@@ -14,6 +15,9 @@ const HistoryContent = () => {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const tHist = useTranslations('HistoryPage');
+  const tBtn = useTranslations('Buttons');
 
   const router = useRouter();
 
@@ -56,7 +60,7 @@ const HistoryContent = () => {
       <div>
         <h2>{error}</h2>
         <button className="button" onClick={() => router.push('/')}>
-          back to main
+          {tBtn('toMain')}
         </button>
       </div>
     );
@@ -64,10 +68,10 @@ const HistoryContent = () => {
 
   return (
     <div className={styles.history}>
-      <h1>History</h1>
+      <h1>{tHist('Title')}</h1>
       {requestHistory.length === 0 ? (
         <div>
-          <p>No request history found.</p>
+          <p>{tHist('NoHistoryFound')}</p>
         </div>
       ) : (
         <ul>
@@ -81,7 +85,7 @@ const HistoryContent = () => {
         </ul>
       )}
       <button className="button" onClick={() => router.push('/')}>
-        back to main
+        {tBtn('toMain')}
       </button>
     </div>
   );

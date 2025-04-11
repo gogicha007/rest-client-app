@@ -50,6 +50,10 @@
       "body_title": "Body"
     }
   },
+  "HistoryPage": {
+    "Title": "History",
+    "NoHistoryFound": "No request history found."
+  },
   "VariablesPage": {
     "Title": "Variables",
     "add_variable": "Add Variable",
@@ -57,5 +61,9 @@
     "placeholder_data": "Data...",
     "button": "Add",
     "current_variables": "Current Variables"
+  },
+  "Buttons": {
+    "toMain": "Back to main",
+    "tryAgain": "Try again"
   }
 }

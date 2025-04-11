@@ -10,6 +10,6 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <ErrorFallback error={error} reset={reset} header="Sign Up Page error!" />
+    <ErrorFallback error={error} reset={reset} header="Sign In Page error!" />
   );
 }
