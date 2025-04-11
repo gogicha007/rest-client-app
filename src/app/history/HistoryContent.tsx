@@ -6,6 +6,7 @@ import { getRequestHistory, auth } from '@/utils/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
 import { RequestDataWithLink } from '@/types/request';
+import { handleError } from '@/utils/errorHandler';
 
 const HistoryContent = () => {
   const [requestHistory, setRequestHistory] = useState<RequestDataWithLink[]>(
@@ -23,8 +24,12 @@ const HistoryContent = () => {
         const history = await getRequestHistory(userId);
         setRequestHistory(history);
       } catch (err) {
-        console.error(err);
-        setError('Failed to fetch history');
+        const error = handleError(err);
+        if (error.type === 'application') {
+          setError(error.message);
+        } else {
+          setError(`HTTP Error: ${error.message}`);
+        }
       } finally {
         setLoading(false);
       }
@@ -47,7 +52,14 @@ const HistoryContent = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div>
+        <h2>{error}</h2>
+        <button className="button" onClick={() => router.push('/')}>
+          back to main
+        </button>
+      </div>
+    );
   }
 
   return (
