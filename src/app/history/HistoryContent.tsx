@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getRequestHistory, auth } from '@/utils/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
 import { RequestDataWithLink } from '@/types/request';
 
@@ -16,17 +17,11 @@ const HistoryContent = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const fetchHistory = async (userId: string) => {
       setLoading(true);
       try {
-        const user = auth.currentUser;
-        if (user) {
-          const userId = user.uid;
-          const history = await getRequestHistory(userId);
-          setRequestHistory(history);
-        } else {
-          setError('User not authenticated');
-        }
+        const history = await getRequestHistory(userId);
+        setRequestHistory(history);
       } catch (err) {
         console.error(err);
         setError('Failed to fetch history');
@@ -34,7 +29,17 @@ const HistoryContent = () => {
         setLoading(false);
       }
     };
-    fetchHistory();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchHistory(user.uid);
+      } else {
+        setError('User not authenticated');
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   if (loading) {
