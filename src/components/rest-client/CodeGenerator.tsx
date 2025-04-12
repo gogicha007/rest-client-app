@@ -70,7 +70,6 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
       convertOptions,
       (error: Error | null, snippet: string) => {
         if (error) {
-          console.error('Error generating code:', error);
           setGeneratedCode('Error generating code. Please try again.');
         } else {
           setGeneratedCode(replaceTemplateVariables(snippet, variables));

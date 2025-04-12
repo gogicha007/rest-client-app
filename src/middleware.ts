@@ -28,8 +28,7 @@ export async function middleware(request: NextRequest) {
     }
     
     return NextResponse.next();
-  } catch (err) {
-    console.log('invalid token:', err);
+  } catch {
     return NextResponse.redirect(new URL('/', request.nextUrl.origin));
   }
 }

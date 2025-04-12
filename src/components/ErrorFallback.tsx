@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { handleError } from '@/utils/errorHandler';
 import { useTranslations } from 'next-intl';
@@ -14,11 +13,6 @@ export default function ErrorFallback({
   reset,
   header,
 }: ErrorFallbackProps) {
-  useEffect(() => {
-    const categorizedError = handleError(error);
-    console.error(categorizedError.message);
-  }, [error]);
-
   const tBtn = useTranslations('Buttons');
   const router = useRouter();
 
@@ -35,7 +29,7 @@ export default function ErrorFallback({
       <h2>{header}</h2>
       <h3>{handleError(error).message}</h3>
       <button className="button" onClick={handleResetOrRedirect}>
-        {reset === undefined ? tBtn('toMain') : tBtn('tryAgain')}
+        {typeof reset === 'function' ? tBtn('tryAgain') : tBtn('toMain')}
       </button>
     </div>
   );

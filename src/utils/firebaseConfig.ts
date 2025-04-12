@@ -37,9 +37,7 @@ const logout = async () => {
 
     destroyCookie(null, 'authToken', { path: '/' });
 
-    console.log('user logged out and token removed from cookies');
   } catch (error) {
-    console.log('error during logout:', error);
     throw error;
   }
 };
@@ -53,17 +51,14 @@ const saveRequestData = async (
     const urls = history.map((val) => val.url);
     const checkUrl = urls.includes(requestData.url);
     if (checkUrl) {
-      console.log('does not saved because its already saved');
       return;
     }
     const docRef = await addDoc(
       collection(db, 'users', userId, 'requests'),
       requestData
     );
-    console.log('Request data saved with ID:', docRef.id);
     return docRef.id;
   } catch (error) {
-    console.error('Error saving request data:', error);
     throw error;
   }
 };
@@ -83,7 +78,6 @@ const getRequestHistory = async (userId: string) => {
     }));
     return history;
   } catch (error) {
-    console.error('Error fetching request history:', error);
     throw error;
   }
 };

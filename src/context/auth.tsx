@@ -39,7 +39,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             maxAge: 60 * 60 * 24,
           });
         } else {
-          console.log('token expired');
           await logout();
           setCurrentUser(null);
           router.push('/');
@@ -57,7 +56,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (currentUser) {
         const expired = await isTokenExpired(currentUser);
         if (expired) {
-          console.log('token expired on route change');
           await logout();
           setCurrentUser(null);
           router.push('/');
