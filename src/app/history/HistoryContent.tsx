@@ -3,8 +3,11 @@ import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getRequestHistory, auth } from '@/utils/firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 import Loader from '@/components/loader/loader';
 import { RequestDataWithLink } from '@/types/request';
+import { handleError } from '@/utils/errorHandler';
+import { useTranslations } from 'next-intl';
 
 const HistoryContent = () => {
   const [requestHistory, setRequestHistory] = useState<RequestDataWithLink[]>(
@@ -13,28 +16,39 @@ const HistoryContent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const tHist = useTranslations('HistoryPage');
+  const tBtn = useTranslations('Buttons');
+
   const router = useRouter();
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const fetchHistory = async (userId: string) => {
       setLoading(true);
       try {
-        const user = auth.currentUser;
-        if (user) {
-          const userId = user.uid;
-          const history = await getRequestHistory(userId);
-          setRequestHistory(history);
-        } else {
-          setError('User not authenticated');
-        }
+        const history = await getRequestHistory(userId);
+        setRequestHistory(history);
       } catch (err) {
-        console.error(err);
-        setError('Failed to fetch history');
+        const error = handleError(err);
+        if (error.type === 'application') {
+          setError(error.message);
+        } else {
+          setError(`HTTP Error: ${error.message}`);
+        }
       } finally {
         setLoading(false);
       }
     };
-    fetchHistory();
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchHistory(user.uid);
+      } else {
+        setError('User not authenticated');
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   if (loading) {
@@ -42,15 +56,22 @@ const HistoryContent = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div>
+        <h2>{error}</h2>
+        <button className="button" onClick={() => router.push('/')}>
+          {tBtn('toMain')}
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className={styles.history}>
-      <h1>History</h1>
+      <h1>{tHist('title')}</h1>
       {requestHistory.length === 0 ? (
         <div>
-          <p>No request history found.</p>
+          <p>{tHist('noHistoryFound')}</p>
         </div>
       ) : (
         <ul>
@@ -64,7 +85,7 @@ const HistoryContent = () => {
         </ul>
       )}
       <button className="button" onClick={() => router.push('/')}>
-        back to main
+        {tBtn('toMain')}
       </button>
     </div>
   );

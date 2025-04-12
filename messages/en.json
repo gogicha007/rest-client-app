@@ -12,6 +12,12 @@
     "history": "History",
     "variables": "Variables"
   },
+  "LoginPage": {
+    "pageError": "Sign In Page error!"
+  },
+  "RegisterPage": {
+    "pageError": "Sign Up Page error!"
+  },
   "AuthForm": {
     "login": "Sign In",
     "register": "Sign Up",
@@ -21,41 +27,53 @@
     "error": "An unexpected error occurred."
   },
   "RestClientPage": {
-    "Title": "REST Client",
-    "UrlInput": {
+    "title": "REST Client",
+    "urlInput": {
       "placeholder": "Enter endpoint URL"
     },
     "HeadersEditor": {
-      "Title": "Headers",
+      "title": "Headers",
       "headerName_placeholder": "Header name",
       "headerValue_placeholder": "Header value",
       "addHeaderButton": "Add Header",
       "removeHeaderButton": "Remove"
     },
     "RequestBodyEditor": {
-      "Title": "Request Body",
-      "Button": "Format JSON",
+      "title": "Request Body",
+      "button": "Format JSON",
       "placeholder": "Enter request body (JSON)",
       "errorMessage": "Invalid JSON format"
     },
     "CodeGenerator": {
-      "Title": "Generated Code",
+      "title": "Generated Code",
       "errorMessage": "Error generating code. Please try again."
     },
     "ResponseSection": {
-      "Title": "Response",
+      "title": "Response",
       "button_sending": "Sending",
       "button_send": "Send Request",
       "headers_title": "Headers",
       "body_title": "Body"
-    }
+    },
+    "pageError": "REST-Client Page Error!"
+  },
+  "HistoryPage": {
+    "title": "History",
+    "noHistoryFound": "No request history found.",
+    "userNotAuthenticated": "User not authenticated",
+    "pageError": "History Page Error!"
   },
   "VariablesPage": {
-    "Title": "Variables",
+    "title": "Variables",
     "add_variable": "Add Variable",
     "placeholder_key": "Key...",
     "placeholder_data": "Data...",
     "button": "Add",
-    "current_variables": "Current Variables"
+    "current_variables": "Current Variables",
+    "pageError": "Variables Page Error!"
+  },
+  "Buttons": {
+    "toMain": "Back to main",
+    "tryAgain": "Try again"
   }
 }

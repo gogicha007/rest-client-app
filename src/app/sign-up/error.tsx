@@ -1,6 +1,6 @@
 'use client';
-
-import { useEffect } from 'react';
+import ErrorFallback from '@/components/ErrorFallback';
+import { useTranslations } from 'next-intl';
 
 export default function Error({
   error,
@@ -9,16 +9,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
-  return (
-    <div>
-      <h2>Sign Up error! {error.message}</h2>
-      <button className="button" onClick={() => reset()}>
-        Try again
-      </button>
-    </div>
-  );
+  const t = useTranslations('RegisterPage');
+  return <ErrorFallback error={error} reset={reset} header={t('pageError')} />;
 }

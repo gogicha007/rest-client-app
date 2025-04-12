@@ -12,6 +12,12 @@
     "history": "Verlauf",
     "variables": "Variablen"
   },
+  "LoginPage": {
+    "pageError": "Anmeldeseitenfehler!"
+  },
+  "RegisterPage": {
+    "pageError": "Registrierungsseitenfehler!"
+  },
   "AuthForm": {
     "login": "Anmelden",
     "register": "Registrieren",
@@ -21,41 +27,53 @@
     "error": "Ein unerwarteter Fehler ist aufgetreten."
   },
   "RestClientPage": {
-    "Title": "REST-Client",
-    "UrlInput": {
+    "title": "REST-Client",
+    "urlInput": {
       "placeholder": "Endpunkt-URL eingeben"
     },
     "HeadersEditor": {
-      "Title": "Header",
+      "title": "Header",
       "headerName_placeholder": "Header-Name",
       "headerValue_placeholder": "Header-Wert",
       "addHeaderButton": "Header hinzufügen",
       "removeHeaderButton": "Entfernen"
     },
     "RequestBodyEditor": {
-      "Title": "Anfrageinhalt",
-      "Button": "JSON formatieren",
+      "title": "Anfrageinhalt",
+      "button": "JSON formatieren",
       "placeholder": "Anfrageinhalt eingeben (JSON)",
       "errorMessage": "Ungültiges JSON-Format"
     },
     "CodeGenerator": {
-      "Title": "Generierter Code",
+      "title": "Generierter Code",
       "errorMessage": "Fehler beim Generieren des Codes. Bitte versuchen Sie es erneut."
     },
     "ResponseSection": {
-      "Title": "Antwort",
+      "title": "Antwort",
       "button_sending": "Senden",
       "button_send": "Anfrage senden",
       "headers_title": "Header",
       "body_title": "Inhalt"
-    }
+    },
+    "pageError": "REST-Client-Seitenfehler!"
+  },
+  "HistoryPage": {
+    "title": "Verlauf",
+    "noHistoryFound": "Kein Verlauf gefunden.",
+    "userNotAuthenticated": "Benutzer nicht authentifiziert",
+    "pageError": "Verlaufsseitenfehler!"
   },
   "VariablesPage": {
-    "Title": "Variablen",
+    "title": "Variablen",
     "add_variable": "Variable hinzufügen",
     "placeholder_key": "Schlüssel...",
     "placeholder_data": "Daten...",
     "button": "Hinzufügen",
-    "current_variables": "Aktuelle Variablen"
+    "current_variables": "Aktuelle Variablen",
+    "pageError": "Variablen-Seitenfehler!"
+  },
+  "Buttons": {
+    "toMain": "Zurück zur Hauptseite",
+    "tryAgain": "Erneut versuchen"
   }
 }

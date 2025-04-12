@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
 import { RequestDataWithLink } from '@/types/request';
+import { destroyCookie } from 'nookies';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -30,8 +31,15 @@ const login = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-const logout = () => {
-  return signOut(auth);
+const logout = async () => {
+  try {
+    await signOut(auth);
+
+    destroyCookie(null, 'authToken', { path: '/' });
+
+  } catch (error) {
+    throw error;
+  }
 };
 
 const saveRequestData = async (
@@ -43,17 +51,14 @@ const saveRequestData = async (
     const urls = history.map((val) => val.url);
     const checkUrl = urls.includes(requestData.url);
     if (checkUrl) {
-      console.log('does not saved because its already saved');
       return;
     }
     const docRef = await addDoc(
       collection(db, 'users', userId, 'requests'),
       requestData
     );
-    console.log('Request data saved with ID:', docRef.id);
     return docRef.id;
   } catch (error) {
-    console.error('Error saving request data:', error);
     throw error;
   }
 };
@@ -73,7 +78,6 @@ const getRequestHistory = async (userId: string) => {
     }));
     return history;
   } catch (error) {
-    console.error('Error fetching request history:', error);
     throw error;
   }
 };

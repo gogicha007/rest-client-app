@@ -4,11 +4,15 @@ import { useTranslations } from 'next-intl';
 
 export default function Error({
   error,
-  reset,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
 }) {
-  const t = useTranslations('LoginPage');
-  return <ErrorFallback error={error} reset={reset} header={t('pageError')} />;
+  const tHist = useTranslations('HistoryPage');
+  return (
+    <ErrorFallback
+      error={error}
+      reset={undefined}
+      header={tHist('pageError')}
+    />
+  );
 }
