@@ -10,7 +10,8 @@
     "welcomeBack": "Welcome back!",
     "restClient": "REST Client",
     "history": "History",
-    "variables": "Variables"
+    "variables": "Variables",
+    "pageError": "General error!"
   },
   "LoginPage": {
     "pageError": "Sign In Page error!"

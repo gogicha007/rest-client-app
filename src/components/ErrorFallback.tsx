@@ -1,3 +1,4 @@
+'use client';
 import { useRouter } from 'next/navigation';
 import { handleError } from '@/utils/errorHandler';
 import { useTranslations } from 'next-intl';
@@ -13,7 +14,7 @@ export default function ErrorFallback({
   reset,
   header,
 }: ErrorFallbackProps) {
-  const tBtn = useTranslations('Buttons');
+  const tBtn = useTranslations('Buttons') || ((key: string) => key);
   const router = useRouter();
 
   const handleResetOrRedirect = () => {
@@ -27,7 +28,7 @@ export default function ErrorFallback({
   return (
     <div>
       <h2>{header}</h2>
-      <h3>{handleError(error).message}</h3>
+      <h3>{handleError(error).message || 'An unexpectged error occurred.'}</h3>
       <button className="button" onClick={handleResetOrRedirect}>
         {typeof reset === 'function' ? tBtn('tryAgain') : tBtn('toMain')}
       </button>
