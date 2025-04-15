@@ -5,7 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import Footer from '@/components/footer/footer';
 import { AuthProvider } from '@/context/auth';
-import { ReduxProvider } from '@/store/ReduxProvider';
+import { ReduxProvider } from '@/components/ReduxProvider/ReduxProvider';
 
 export const metadata: Metadata = {
   title: 'Rest Client',
