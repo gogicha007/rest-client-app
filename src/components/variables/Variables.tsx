@@ -1,23 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   loadVariablesFromLocalStorage,
   saveVariableToLocalStorage,
   removeVariableFromLocalStorage,
 } from '@/store//variablesThunks';
-import { BsTrash3Fill } from 'react-icons/bs';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
 import s from './Variables.module.scss';
+import { selectVariables } from '@/store/variablesSlice';
 
 export const Variables = () => {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
-  const variables = useSelector(
-    (state: RootState) => state.variables.variables
-  );
+  const variables = useAppSelector(selectVariables);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -54,11 +51,7 @@ export const Variables = () => {
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
-            <button
-              className="button"
-              disabled={!key || !value}
-              onClick={handleAdd}
-            >
+            <button className="button" onClick={handleAdd}>
               Add
             </button>
           </div>
@@ -66,33 +59,19 @@ export const Variables = () => {
         <div>
           <h3>Current Variables</h3>
           <div>
-            <table className={s.variables__table}>
-              <thead>
-                <tr>
-                  <th className={s.variables__headerCell}></th>
-                  <th className={s.variables__headerCell}>Key</th>
-                  <th className={s.variables__headerCell}>Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {variables.map((variable) => (
-                  <tr key={variable.key}>
-                    <td
-                      className={`${s.variables__tableClose} ${s.variables__bodyCell} `}
-                    >
-                      <button
-                        className={s.variables__close}
-                        onClick={() => handleRemove(variable.key)}
-                      >
-                        <BsTrash3Fill className="text-1xl" />
-                      </button>
-                    </td>
-                    <td className={s.variables__bodyCell}>{variable.key}</td>
-                    <td className={s.variables__bodyCell}>{variable.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {variables.map((variable) => (
+              <div key={variable.key} className={s.variables__item}>
+                <button
+                  className={s.variables__close}
+                  onClick={() => handleRemove(variable.key)}
+                >
+                  <IoIosCloseCircleOutline className="text-2xl" />
+                </button>
+                <span>
+                  {variable.key}: {variable.value}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
