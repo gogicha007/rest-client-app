@@ -1,12 +1,12 @@
 import './globals.scss';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 import { AuthProvider } from '@/context/auth';
 import { ReduxProvider } from '@/store/ReduxProvider';
+import LayoutClient from './layoutClient';
 import Header from '@/components/header/header';
 import Footer from '@/components/footer/footer';
-import LayoutClient from './layoutClient';
-import { getLocale, getMessages } from 'next-intl/server';
 
 export const metadata: Metadata = {
   title: 'Rest Client',
@@ -25,8 +25,9 @@ export default async function RootLayout({
   try {
     locale = await getLocale();
     messages = await getMessages({ locale });
-  } catch (error) {
-    console.error('Error fetching locale or messages:', error);
+  } catch {
+    locale = 'en';
+    messages = {};
   }
 
   return (
