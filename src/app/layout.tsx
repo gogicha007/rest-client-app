@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { AuthProvider } from '@/context/auth';
-import { ReduxProvider } from '@/store/ReduxProvider';
+import { ReduxProvider } from '@/components/ReduxProvider/ReduxProvider';
 import Header from '@/components/header/header';
 import Footer from '@/components/footer/footer';
+
 
 export const metadata: Metadata = {
   title: 'Rest Client',

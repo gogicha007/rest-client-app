@@ -1,0 +1,14 @@
+$mobile-breakpoint: 600px;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition-smooth {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
