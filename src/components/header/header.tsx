@@ -1,7 +1,7 @@
 'use client';
-import React from 'react';
 import styles from './header.module.scss';
 import LocaleSwitcher from '../locale-switcher/LocaleSwitcher';
+import Image from 'next/image';
 import Logo from '../../../public/logo.svg';
 import AuthBar from '../auth-bar/authBar';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 const Header = () => {
   return (
     <div className={styles.header}>
-      <Logo className={styles.logo} />
+      <Image src={Logo} alt="Logo" className={styles.logo} />
       <nav className={styles.nav}>
         <Link href="/" className={styles.navLink}>
           Home

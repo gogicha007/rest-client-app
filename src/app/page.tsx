@@ -5,9 +5,10 @@ import { useAuth } from '@/context/auth';
 import Link from 'next/link';
 
 export default function Home() {
-  const { currentUser } = useAuth();
-  const tH = useTranslations('HomePage');
-  const tA = useTranslations('AuthForm');
+  const { currentUser } = useAuth() || { currentUser: null };
+  console.log(currentUser);
+  const tH = useTranslations('HomePage') || ((key: string) => key);
+  const tA = useTranslations('AuthForm') || ((key: string) => key);
 
   const WelcomeMessage = () => (
     <div className={styles.home__welcome}>
