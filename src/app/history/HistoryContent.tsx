@@ -22,7 +22,6 @@ const HistoryContent = () => {
 
   useEffect(() => {
     const fetchHistory = async (userId: string) => {
-      // if (!loading) setLoading(true);
       try {
         const history = await getRequestHistory(userId);
         setRequestHistory(history);
