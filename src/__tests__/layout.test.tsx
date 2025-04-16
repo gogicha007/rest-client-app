@@ -1,8 +1,7 @@
 import { jest } from '@jest/globals';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AuthProvider } from '@/context/auth';
-import { ReduxProvider } from '@/store/ReduxProvider';
+import RootLayout from '@/app/layout';
 
 jest.mock('next-intl/server', () => ({
   getLocale: jest.fn<() => Promise<string>>().mockResolvedValue('en'),
@@ -40,34 +39,71 @@ jest.mock('@/components/footer/footer', () => {
   MockFooter.displayName = 'MockFooter';
   return MockFooter;
 });
-jest.mock('../app/layoutClient', () => {
-  const LayoutClient = ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
+
+jest.mock('@/app/layoutClient', () => {
+  const MockLayoutClient = ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="layout-client">{children}</div>
   );
-  LayoutClient.displayName = 'LayoutClient';
-  return LayoutClient;
+  MockLayoutClient.displayName = 'MockLayoutClient';
+  return MockLayoutClient;
 });
 
-import RootLayout from '../app/layout';
+jest.mock('next-intl', () => ({
+  useTranslations: jest.fn().mockImplementation(() => (key: string) => key),
+  NextIntlClientProvider: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="intl-provider">{children}</div>
+  ),
+}));
 
 describe('RootLayout', () => {
   it('renders the layout with children', async () => {
-    const children = <div>Test Content<span>hello</span></div>;
+    const children = (
+      <div>
+        Test Content<span>hello</span>
+      </div>
+    );
 
-    await waitFor(() => {
-      render(
-        <AuthProvider>
-          <ReduxProvider>
-            <RootLayout>{children}</RootLayout>
-          </ReduxProvider>
-        </AuthProvider>
-      );
-    });
+    render(await RootLayout({ children }));
 
-    await waitFor(() => {
-      expect(screen.getByText('Mock Header')).toBeInTheDocument();
-    });
+    expect(screen.getByText('Mock Header')).toBeInTheDocument();
     expect(screen.getByText('Test Content')).toBeInTheDocument();
+    expect(screen.getByText('hello')).toBeInTheDocument();
     expect(screen.getByText('Mock Footer')).toBeInTheDocument();
+  });
+
+  it('renders with correct language attribute', async () => {
+    const children = <div>Test Content</div>;
+
+    render(await RootLayout({ children }));
+
+    const htmlElement = document.querySelector('html');
+    expect(htmlElement).toHaveAttribute('lang', 'en');
+  });
+
+  it('renders the correct structure with header, main, and footer', async () => {
+    const children = <div>Test Content</div>;
+
+    render(await RootLayout({ children }));
+
+    expect(screen.getByTestId('layout-client')).toBeInTheDocument();
+    expect(document.querySelector('main')).toBeInTheDocument();
+    expect(document.querySelector('header')).toBeInTheDocument();
+    expect(document.querySelector('footer')).toBeInTheDocument();
+  });
+
+  it('handles error when fetching locale and messages', async () => {
+    const mockGetLocale = (jest.requireMock('next-intl/server') as { getLocale: jest.Mock }).getLocale;
+    const mockGetMessages = (jest.requireMock('next-intl/server') as { getMessages: jest.Mock }).getMessages;
+
+    mockGetLocale.mockRejectedValueOnce(new Error('Failed to get locale') as never);
+    mockGetMessages.mockRejectedValueOnce(new Error('Failed to get messages') as never);
+
+    const children = <div>Test Content</div>;
+
+    render(await RootLayout({ children }));
+
+    expect(screen.getByText('Test Content')).toBeInTheDocument();
+    const htmlElement = document.querySelector('html');
+    expect(htmlElement).toHaveAttribute('lang', 'en');
   });
 });
