@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const About = () => {
   return (
-    <details className={styles.about} open>
+    <details className={styles.about}>
       <summary className={styles.about__title}>About the project</summary>
       <p className={styles.about__header}>Developers</p>
       <div className={styles.about__authors}>
