@@ -6,12 +6,26 @@
   },
   "HomePage": {
     "title": "Home Page",
+    "about": {
+      "title": "About the project",
+      "authors": "Developers",
+      "project_header": "Project",
+      "project_content": "REST Client app - A light-weight version of Postman created with Next JS",
+      "course_header": "Course",
+      "course_content": "RS School React JS"
+    },
     "welcome": "Welcome!",
     "welcomeBack": "Welcome back!",
     "restClient": "REST Client",
     "history": "History",
     "variables": "Variables",
     "pageError": "General error!"
+  },
+  "HeaderMenu": {
+    "home": "Home",
+    "rest-client": "REST Client",
+    "history": "History",
+    "variables": "Variables"
   },
   "LoginPage": {
     "pageError": "Sign In Page error!"

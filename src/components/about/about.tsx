@@ -1,11 +1,13 @@
 import styles from './about.module.css';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 const About = () => {
+  const tAb = useTranslations('HomePage');
   return (
     <details className={styles.about}>
-      <summary className={styles.about__title}>About the project</summary>
-      <p className={styles.about__header}>Developers</p>
+      <summary className={styles.about__title}>{tAb('about.title')}</summary>
+      <p className={styles.about__header}>{tAb('about.authors')}</p>
       <div className={styles.about__authors}>
         <Link href={'https://github.com/gogicha007'} target="_blank">
           Irakli Gogicha
@@ -17,15 +19,10 @@ const About = () => {
           Vlad Barvinko
         </Link>
       </div>
-      <p className={styles.about__header}>Project</p>
-      <p>REST Client app - A light-weight version of Postman created with Next JS</p>
-      <p className={styles.about__header}>Course</p>
-      <p>RS School React JS</p>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+      <p className={styles.about__header}>{tAb('about.project_header')}</p>
+      <p>{tAb('about.project_content')}</p>
+      <p className={styles.about__header}>{tAb('about.course_header')}</p>
+      <p>{tAb('about.course_content')}</p>
     </details>
   );
 };

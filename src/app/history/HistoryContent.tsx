@@ -18,12 +18,11 @@ const HistoryContent = () => {
 
   const tHist = useTranslations('HistoryPage');
   const tBtn = useTranslations('Buttons');
-
   const router = useRouter();
 
   useEffect(() => {
     const fetchHistory = async (userId: string) => {
-      setLoading(true);
+      if (!loading) setLoading(true);
       try {
         const history = await getRequestHistory(userId);
         setRequestHistory(history);
@@ -48,7 +47,11 @@ const HistoryContent = () => {
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
   }, []);
 
   if (loading) {

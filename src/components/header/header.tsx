@@ -1,5 +1,6 @@
 'use client';
 import styles from './header.module.scss';
+import { useTranslations } from 'next-intl';
 import LocaleSwitcher from '../locale-switcher/LocaleSwitcher';
 import AuthBar from '../auth-bar/authBar';
 import Logo from '../../../public/logo.svg';
@@ -9,6 +10,7 @@ import Image from 'next/image';
 const Header = () => {
   const isProduction = process.env.NODE_ENV === 'production';
   const logoSrc = isProduction ? '/logo.svg' : Logo;
+  const tHeader = useTranslations('HeaderMenu');
 
   return (
     <div className={styles.header}>
@@ -19,13 +21,16 @@ const Header = () => {
       )}
       <nav className={styles.nav}>
         <Link href="/" className={styles.navLink}>
-          Home
+          {tHeader('home')}
         </Link>
         <Link href="/rest-client/get" className={styles.navLink}>
-          REST Client
+          {tHeader('rest-client')}
+        </Link>
+        <Link href="/history" className={styles.navLink}>
+        {tHeader('history')}
         </Link>
         <Link href="/variables" className={styles.navLink}>
-          Variables
+        {tHeader('variables')}
         </Link>
       </nav>
       <LocaleSwitcher />

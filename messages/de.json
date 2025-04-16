@@ -6,9 +6,24 @@
   },
   "HomePage": {
     "title": "Startseite",
+    "about": {
+      "title": "Über das Projekt",
+      "authors": "Entwickler",
+      "project_header": "Projekt",
+      "project_content": "REST-Client-App - Eine leichtgewichtige Version von Postman, erstellt mit Next JS",
+      "course_header": "Kurs",
+      "course_content": "RS School React JS"
+    },
     "welcome": "Willkommen!",
     "welcomeBack": "Willkommen zurück!",
     "restClient": "REST-Client",
+    "history": "Verlauf",
+    "variables": "Variablen",
+    "pageError": "Allgemeiner Fehler!"
+  },
+  "HeaderMenu": {
+    "home": "Startseite",
+    "rest-client": "REST-Client",
     "history": "Verlauf",
     "variables": "Variablen"
   },
