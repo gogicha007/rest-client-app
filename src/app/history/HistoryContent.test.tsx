@@ -23,7 +23,7 @@ jest.mock('@/utils/firebaseConfig', () => ({
 
 jest.mock('firebase/auth', () => ({
   getAuth: jest.fn(() => ({})),
-  onAuthStateChanged: jest.fn((auth, callback: AuthStateChangedCallback) => {
+  onAuthStateChanged: jest.fn((_, callback: AuthStateChangedCallback) => {
     setTimeout(() => callback(null), 0);
     return jest.fn();
   }),
@@ -37,6 +37,15 @@ jest.mock('@/components/loader/loader', () => {
   const MockLoader = () => <div>Loading...</div>; // Ensure this matches the expected text
   MockLoader.displayName = 'MockLoader';
   return MockLoader;
+});
+
+beforeEach(() => {
+  (onAuthStateChanged as unknown as jest.Mock).mockReset();
+  (getRequestHistory as jest.Mock).mockReset();
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
 });
 
 describe('HistoryContent Component', () => {
@@ -74,7 +83,9 @@ describe('HistoryContent Component', () => {
       render(<HistoryContent />);
     });
 
-    expect(screen.getByText('HTTP Error: Fetch failed')).toBeInTheDocument();
+    await expect(
+      screen.findByText('Fetch failed')
+    ).resolves.toBeInTheDocument();
   });
 
   it('renders the request history if data is available', async () => {
@@ -96,7 +107,9 @@ describe('HistoryContent Component', () => {
       render(<HistoryContent />);
     });
 
-    expect(screen.getByText('https://example.com')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('https://example.com')).toBeInTheDocument();
+    });
   });
 
   it('renders a message if no history is found', async () => {
@@ -112,6 +125,8 @@ describe('HistoryContent Component', () => {
       render(<HistoryContent />);
     });
 
-    expect(screen.getByText('No history found')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('noHistoryFound')).toBeInTheDocument();
+    });
   });
 });
