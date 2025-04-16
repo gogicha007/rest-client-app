@@ -27,10 +27,10 @@ const Header = () => {
           {tHeader('rest-client')}
         </Link>
         <Link href="/history" className={styles.navLink}>
-        {tHeader('history')}
+          {tHeader('history')}
         </Link>
         <Link href="/variables" className={styles.navLink}>
-        {tHeader('variables')}
+          {tHeader('variables')}
         </Link>
       </nav>
       <LocaleSwitcher />

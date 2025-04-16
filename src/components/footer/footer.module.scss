@@ -1,0 +1,26 @@
+.footer {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+.footer__link {
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.3s ease;
+}
+
+.footer__logo {
+  width: 250px;
+  cursor: pointer;
+  scale: 50%;
+  transition: 0.7s ease;
+}
+
+.footer__logo:hover {
+  filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
+    contrast(87%);
+}
