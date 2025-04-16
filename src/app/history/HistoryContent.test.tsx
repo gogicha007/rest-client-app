@@ -34,7 +34,7 @@ jest.mock('next-intl', () => ({
 }));
 
 jest.mock('@/components/loader/loader', () => {
-  const MockLoader = () => <div>Loading...</div>; // Ensure this matches the expected text
+  const MockLoader = () => <div>Loading...</div>; 
   MockLoader.displayName = 'MockLoader';
   return MockLoader;
 });
