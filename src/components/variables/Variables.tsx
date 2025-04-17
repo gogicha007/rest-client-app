@@ -39,65 +39,74 @@ export const Variables = () => {
   };
 
   return (
-    <article className={s.variables}>
-      <section className={s.variables__section}>
-        <div className={s.variables__container}>
-          <h3>{tHist('add_variable')}</h3>
-          <div className={s.variables__inputContainer}>
-            <input
-              type="text"
-              placeholder={`${tHist('key')}...`}
-              value={key}
-              onChange={(e) => setKey(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder={`${tHist('value')}...`}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            />
-            <button
-              className="button"
-              disabled={!key || !value}
-              onClick={handleAdd}
-            >
-              {tHist('button')}
-            </button>
+    <div className="container">
+      <h1 className="title">Variables</h1>
+      <article className={s.variables}>
+        <section className={s.variables__section}>
+          <div className={s.variables__container}>
+            <h3>{tHist('add_variable')}</h3>
+            <div className={s.variables__inputContainer}>
+              <input
+                type="text"
+                placeholder={`${tHist('key')}...`}
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder={`${tHist('value')}...`}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+              />
+              <button
+                className="button"
+                disabled={!key || !value}
+                onClick={handleAdd}
+              >
+                {tHist('button')}
+              </button>
+            </div>
           </div>
-        </div>
-        <div>
-          <h3>{tHist('current_variables')}</h3>
           <div>
-            <table className={s.variables__table}>
-              <thead>
-                <tr>
-                  <th className={s.variables__headerCell}></th>
-                  <th className={s.variables__headerCell}>{tHist('key')}</th>
-                  <th className={s.variables__headerCell}>{tHist('value')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {variables.map((variable) => (
-                  <tr key={variable.key}>
-                    <td
-                      className={`${s.variables__tableClose} ${s.variables__bodyCell} `}
-                    >
-                      <button
-                        className={s.variables__close}
-                        onClick={() => handleRemove(variable.key)}
-                      >
-                        <BsTrash3Fill className="text-1xl" />
-                      </button>
-                    </td>
-                    <td className={s.variables__bodyCell}>{variable.key}</td>
-                    <td className={s.variables__bodyCell}>{variable.value}</td>
+            <h3>{tHist('current_variables')}</h3>
+            <div>
+              <table className={s.variables__table}>
+                <thead>
+                  <tr>
+                    <th className={s.variables__headerCell}></th>
+                    <th className={s.variables__headerCell}>{tHist('key')}</th>
+                    <th className={s.variables__headerCell}>
+                      {tHist('value')}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {variables.map((variable) => (
+                    <tr key={variable.key}>
+                      <td
+                        className={`${s.variables__tableClose} ${s.variables__bodyCell} `}
+                      >
+                        <button
+                          className={s.variables__close}
+                          onClick={() => handleRemove(variable.key)}
+                        >
+                          <BsTrash3Fill className="text-1xl" />
+                        </button>
+                      </td>
+                      <td className={s.variables__bodyCell}>{variable.key}</td>
+                      <td className={s.variables__bodyCell}>
+                        {variable.value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </section>
-    </article>
+        </section>
+      </article>
+    </div>
   );
 };
+
+export default Variables;

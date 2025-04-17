@@ -124,6 +124,18 @@ h1 {
   border-radius: 5px;
 }
 
+.container {
+  padding: 2rem;
+  width: 80%;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
