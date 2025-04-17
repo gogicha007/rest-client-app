@@ -39,4 +39,8 @@ const variablesSlice = createSlice({
 
 export const { setVariables, addVariable, removeVariable } =
   variablesSlice.actions;
+
+export const selectVariables = (state: { variables: VariablesState }) =>
+  state.variables.variables;
+
 export default variablesSlice.reducer;
