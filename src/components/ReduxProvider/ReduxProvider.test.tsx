@@ -7,7 +7,9 @@ import { RootState } from '@/store/store';
 
 const TestComponent = () => {
   const state = useSelector<RootState, RootState>((state) => state);
-  return <div>Redux is working: {Object.keys(state).length > 0 ? 'yes' : 'no'}</div>;
+  return (
+    <div>Redux is working: {Object.keys(state).length > 0 ? 'yes' : 'no'}</div>
+  );
 };
 
 describe('ReduxProvider', () => {

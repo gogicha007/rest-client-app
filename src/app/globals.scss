@@ -28,7 +28,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  overflow: visible; 
+  overflow: visible;
 }
 body {
   color: var(--foreground);
@@ -38,13 +38,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 header {
-  position: sticky; 
-  top: 0; 
-  z-index: 1000; 
-  background-color: var(--primary-accent); 
-  transition: background-color 0.3s ease; 
-  color: #fff; 
-  padding: 10px 20px; 
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--primary-accent);
+  transition: background-color 0.3s ease;
+  color: #fff;
+  padding: 10px 20px;
 }
 
 header.scrolled {

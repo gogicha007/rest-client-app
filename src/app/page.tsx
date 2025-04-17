@@ -12,7 +12,7 @@ export default function Home() {
 
   const WelcomeMessage = () => (
     <div className={styles.home__welcome}>
-      <About/>
+      <About />
       {currentUser
         ? `${tH('welcomeBack')} ${currentUser.email}`
         : tH('welcome')}

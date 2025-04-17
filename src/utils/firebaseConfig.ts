@@ -36,7 +36,6 @@ const logout = async () => {
     await signOut(auth);
 
     destroyCookie(null, 'authToken', { path: '/' });
-
   } catch (error) {
     throw error;
   }
