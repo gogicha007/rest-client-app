@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { AuthProvider } from '@/context/auth';
 import { ReduxProvider } from '@/components/ReduxProvider/ReduxProvider';
+import LayoutClient from './layoutClient';
 import Header from '@/components/header/header';
 import Footer from '@/components/footer/footer';
 
@@ -25,24 +26,26 @@ export default async function RootLayout({
   try {
     locale = await getLocale();
     messages = await getMessages({ locale });
-  } catch (error) {
+  } catch {
     locale = 'en';
     messages = {};
-    throw new Error('Error fetching locale or messages: ' + error);
   }
+
   return (
     <html lang={locale}>
       <body>
         <ReduxProvider>
           <AuthProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
-              <header>
-                <Header />
-              </header>
-              <main>{children}</main>
-              <footer>
-                <Footer />
-              </footer>
+              <LayoutClient>
+                <header>
+                  <Header />
+                </header>
+                <main>{children}</main>
+                <footer>
+                  <Footer />
+                </footer>
+              </LayoutClient>
             </NextIntlClientProvider>
           </AuthProvider>
         </ReduxProvider>

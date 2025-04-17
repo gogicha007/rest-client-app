@@ -24,6 +24,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [redirected, setRedirected] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -41,7 +42,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         } else {
           await logout();
           setCurrentUser(null);
-          router.push('/');
+          if (!redirected) {
+            console.log('router.push("/") called in onAuthStateChanged');
+            router.push('/');
+            setRedirected(true);
+          }
         }
       } else {
         setCurrentUser(null);
@@ -49,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setLoading(false);
     });
     return () => unsubscribe();
-  }, [router]);
+  }, [router, redirected]);
 
   useEffect(() => {
     const checkTokenOnRouteChange = async () => {
@@ -58,12 +63,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         if (expired) {
           await logout();
           setCurrentUser(null);
-          router.push('/');
+          if (!redirected) {
+            console.log('router.push("/") called in checkTokenOnRouteChange');
+            router.push('/');
+            setRedirected(true);
+          }
         }
       }
     };
     checkTokenOnRouteChange();
-  }, [pathname, currentUser, router]);
+  }, [pathname, currentUser, router, redirected]);
 
   return (
     <AuthContext.Provider value={{ currentUser, loading }}>
