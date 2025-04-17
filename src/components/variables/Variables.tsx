@@ -9,6 +9,7 @@ import {
   saveVariableToLocalStorage,
   removeVariableFromLocalStorage,
 } from '@/store//variablesThunks';
+import { useTranslations } from 'use-intl';
 import { BsTrash3Fill } from 'react-icons/bs';
 import s from './Variables.module.scss';
 
@@ -20,6 +21,7 @@ export const Variables = () => {
   );
   const dispatch = useAppDispatch();
 
+  const tHist = useTranslations('VariablesPage');
   useEffect(() => {
     dispatch(loadVariablesFromLocalStorage());
   }, [dispatch]);
@@ -40,17 +42,17 @@ export const Variables = () => {
     <article className={s.variables}>
       <section className={s.variables__section}>
         <div className={s.variables__container}>
-          <h3>Add Variable</h3>
+          <h3>{tHist('add_variable')}</h3>
           <div className={s.variables__inputContainer}>
             <input
               type="text"
-              placeholder="Key..."
+              placeholder={`${tHist('key')}...`}
               value={key}
               onChange={(e) => setKey(e.target.value)}
             />
             <input
               type="text"
-              placeholder="Data..."
+              placeholder={`${tHist('value')}...`}
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
@@ -59,19 +61,19 @@ export const Variables = () => {
               disabled={!key || !value}
               onClick={handleAdd}
             >
-              Add
+              {tHist('button')}
             </button>
           </div>
         </div>
         <div>
-          <h3>Current Variables</h3>
+          <h3>{tHist('current_variables')}</h3>
           <div>
             <table className={s.variables__table}>
               <thead>
                 <tr>
                   <th className={s.variables__headerCell}></th>
-                  <th className={s.variables__headerCell}>Key</th>
-                  <th className={s.variables__headerCell}>Value</th>
+                  <th className={s.variables__headerCell}>{tHist('key')}</th>
+                  <th className={s.variables__headerCell}>{tHist('value')}</th>
                 </tr>
               </thead>
               <tbody>
