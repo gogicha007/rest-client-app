@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { handleError } from '@/utils/errorHandler';
 import { useTranslations } from 'next-intl';
 
-type ErrorFallbackProps = {
+export type ErrorFallbackProps = {
   error: Error & { digest?: string };
   reset?: () => void;
   header: string;
