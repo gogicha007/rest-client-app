@@ -1,14 +1,17 @@
 'use client';
-import { Variables } from '@/components/variables/Variables';
-import styles from './page.module.scss';
+import dynamic from 'next/dynamic';
+import Loader from '@/components/loader/loader';
+
+const LazyLoadedVariables = dynamic(
+  () => import('@/components/variables/Variables'),
+  {
+    ssr: false,
+    loading: () => <Loader />,
+  }
+);
 
 const VariablesPage = () => {
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Variables</h1>
-      <Variables />
-    </div>
-  );
+  return <LazyLoadedVariables />;
 };
 
 export default VariablesPage;

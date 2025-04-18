@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface Variable {
+interface Variable {
   key: string;
   value: string;
 }
 
-interface VariablesState {
+export interface VariablesState {
   variables: Variable[];
 }
 
@@ -21,7 +21,15 @@ const variablesSlice = createSlice({
       state.variables = action.payload;
     },
     addVariable: (state, action: PayloadAction<Variable>) => {
-      state.variables.push(action.payload);
+      action.payload.key = action.payload.key.trim();
+      const existingIndex = state.variables.findIndex(
+        (v) => v.key === action.payload.key
+      );
+      if (existingIndex !== -1) {
+        state.variables[existingIndex].value = action.payload.value;
+      } else {
+        state.variables.push(action.payload);
+      }
     },
     removeVariable: (state, action: PayloadAction<string>) => {
       state.variables = state.variables.filter((v) => v.key !== action.payload);

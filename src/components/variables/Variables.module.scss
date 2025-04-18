@@ -1,3 +1,5 @@
+@use '@/styles/variables.scss' as *;
+
 .variables {
   display: flex;
   flex-direction: column;
@@ -35,9 +37,51 @@
 .variables__close {
   color: #d4d4d4;
   cursor: pointer;
-  transition: color 0.2s;
-  margin-right: 0.5rem;
+  @include transition-smooth;
 }
 .variables__close:hover {
   color: rgb(5 46 22);
+}
+
+.variables__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.variables__headerCell,
+.variables__bodyCell {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.variables__table .variables__headerCell:nth-child(1),
+.variables__table .variables__bodyCell:nth-child(1) {
+  width: 30px;
+}
+
+.variables__table .variables__headerCell:nth-child(2),
+.variables__table .variables__bodyCell:nth-child(2) {
+  width: 150px;
+}
+
+.variables__table .variables__headerCell:nth-child(3),
+.variables__table .variables__bodyCell:nth-child(3) {
+  width: calc(100% - 150px - auto);
+}
+
+.variables__headerCell,
+.variables__bodyCell {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.variables__headerCell {
+  text-align: center;
+}
+
+@media (max-width: $mobile-breakpoint) {
+  .variables__inputContainer {
+    flex-direction: column;
+  }
 }

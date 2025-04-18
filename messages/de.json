@@ -81,8 +81,8 @@
   "VariablesPage": {
     "title": "Variablen",
     "add_variable": "Variable hinzufügen",
-    "placeholder_key": "Schlüssel...",
-    "placeholder_data": "Daten...",
+    "key": "Schlüssel",
+    "value": "Wert",
     "button": "Hinzufügen",
     "current_variables": "Aktuelle Variablen",
     "pageError": "Variablen-Seitenfehler!"

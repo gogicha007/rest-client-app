@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
     if (payload.exp && payload.exp < currentTime) {
       return NextResponse.redirect(new URL('/', request.nextUrl.origin));
     }
-    
+
     return NextResponse.next();
   } catch {
     return NextResponse.redirect(new URL('/', request.nextUrl.origin));

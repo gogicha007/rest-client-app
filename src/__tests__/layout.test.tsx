@@ -92,11 +92,19 @@ describe('RootLayout', () => {
   });
 
   it('handles error when fetching locale and messages', async () => {
-    const mockGetLocale = (jest.requireMock('next-intl/server') as { getLocale: jest.Mock }).getLocale;
-    const mockGetMessages = (jest.requireMock('next-intl/server') as { getMessages: jest.Mock }).getMessages;
+    const mockGetLocale = (
+      jest.requireMock('next-intl/server') as { getLocale: jest.Mock }
+    ).getLocale;
+    const mockGetMessages = (
+      jest.requireMock('next-intl/server') as { getMessages: jest.Mock }
+    ).getMessages;
 
-    mockGetLocale.mockRejectedValueOnce(new Error('Failed to get locale') as never);
-    mockGetMessages.mockRejectedValueOnce(new Error('Failed to get messages') as never);
+    mockGetLocale.mockRejectedValueOnce(
+      new Error('Failed to get locale') as never
+    );
+    mockGetMessages.mockRejectedValueOnce(
+      new Error('Failed to get messages') as never
+    );
 
     const children = <div>Test Content</div>;
 

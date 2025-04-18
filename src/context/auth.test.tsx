@@ -48,8 +48,8 @@ const mockedNavigation = jest.requireMock('next/navigation') as {
 };
 
 beforeEach(() => {
-  mockedNavigation.__mockPush.mockClear(); 
-  mockedNavigation.useRouter.mockClear(); 
+  mockedNavigation.__mockPush.mockClear();
+  mockedNavigation.useRouter.mockClear();
 });
 
 const MockChild = () => {
@@ -125,7 +125,10 @@ describe('AuthProvider', () => {
       expect(getByText('User: None')).toBeInTheDocument();
     });
 
-    console.log('Number of calls to router.push:', mockedNavigation.__mockPush.mock.calls.length);
+    console.log(
+      'Number of calls to router.push:',
+      mockedNavigation.__mockPush.mock.calls.length
+    );
     expect(mockedNavigation.__mockPush).toHaveBeenCalledTimes(1);
     expect(mockedNavigation.__mockPush).toHaveBeenCalledWith('/');
   });
