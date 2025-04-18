@@ -9,7 +9,7 @@ import {
   saveVariableToLocalStorage,
   removeVariableFromLocalStorage,
 } from '@/store//variablesThunks';
-import { useTranslations } from 'use-intl';
+import { useTranslations } from 'next-intl';
 import { BsTrash3Fill } from 'react-icons/bs';
 import s from './Variables.module.scss';
 

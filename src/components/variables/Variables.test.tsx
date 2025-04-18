@@ -10,6 +10,10 @@ import variablesReducer, {
 } from '@/store/variablesSlice';
 import * as variablesThunks from '@/store/variablesThunks';
 
+jest.mock('next-intl', () => ({
+  useTranslations: jest.fn().mockImplementation(() => (key: string) => key),
+}));
+
 export const createTestStore = (preloadedState?: {
   variables: VariablesState;
 }) =>
@@ -61,9 +65,9 @@ describe('Variables component', () => {
 
   it('renders input fields and button', () => {
     renderComponent();
-    expect(screen.getByPlaceholderText('Key...')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Data...')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('key...')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('value...')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /button/i })).toBeInTheDocument();
   });
 
   it('displays variables from state', async () => {
@@ -78,14 +82,14 @@ describe('Variables component', () => {
   it('adds a new variable when Add is clicked', () => {
     renderComponent();
 
-    fireEvent.change(screen.getByPlaceholderText('Key...'), {
+    fireEvent.change(screen.getByPlaceholderText('key...'), {
       target: { value: 'TOKEN' },
     });
-    fireEvent.change(screen.getByPlaceholderText('Data...'), {
+    fireEvent.change(screen.getByPlaceholderText('value...'), {
       target: { value: 'abcdef' },
     });
 
-    const addButton = screen.getByRole('button', { name: /add/i });
+    const addButton = screen.getByRole('button', { name: /button/i });
     fireEvent.click(addButton);
 
     expect(variablesThunks.saveVariableToLocalStorage).toHaveBeenCalledWith({
