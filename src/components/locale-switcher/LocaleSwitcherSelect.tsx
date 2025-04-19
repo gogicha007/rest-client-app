@@ -6,13 +6,16 @@ import { Locale } from '@/i18n/config';
 import { setUserLocale } from '@/utils/locale';
 import Loader from '../loader/loader';
 
-type Props = {
+export type LocaleSwitcherSelectProps = {
   defaultValue: string;
   items: Array<{ value: string; label: string }>;
   label?: string;
 };
 
-export default function LocaleSwitcherSelect({ defaultValue, items }: Props) {
+export default function LocaleSwitcherSelect({
+  defaultValue,
+  items,
+}: LocaleSwitcherSelectProps) {
   const [isPending, startTransition] = useTransition();
   const [checked, setChecked] = useState(defaultValue === 'en' ? false : true);
 
