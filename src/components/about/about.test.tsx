@@ -18,14 +18,12 @@ describe('About component', () => {
 
   it('renders authors section', () => {
     expect(screen.getByText('about.authors')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Irakli Gogicha' })).toHaveAttribute(
-      'href',
-      'https://github.com/gogicha007'
-    );
-    expect(screen.getByRole('link', { name: 'Oleg Polovinko' })).toHaveAttribute(
-      'href',
-      'https://github.com/sheritsh'
-    );
+    expect(
+      screen.getByRole('link', { name: 'Irakli Gogicha' })
+    ).toHaveAttribute('href', 'https://github.com/gogicha007');
+    expect(
+      screen.getByRole('link', { name: 'Oleg Polovinko' })
+    ).toHaveAttribute('href', 'https://github.com/sheritsh');
     expect(screen.getByRole('link', { name: 'Vlad Barvinko' })).toHaveAttribute(
       'href',
       'https://github.com/Barvinko'
