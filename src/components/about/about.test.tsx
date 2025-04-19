@@ -24,10 +24,9 @@ describe('About component', () => {
     expect(
       screen.getByRole('link', { name: 'Oleg Polovinko' })
     ).toHaveAttribute('href', 'https://github.com/sheritsh');
-    expect(screen.getByRole('link', { name: 'Vlad Barvinko' })).toHaveAttribute(
-      'href',
-      'https://github.com/Barvinko'
-    );
+    expect(
+      screen.getByRole('link', { name: 'Vladyslav Barvinko' })
+    ).toHaveAttribute('href', 'https://github.com/Barvinko');
   });
 
   it('renders all localized sections', () => {

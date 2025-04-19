@@ -3,24 +3,7 @@ import RssLogo from '../../../public/rss.svg';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaRegCopyright } from 'react-icons/fa';
-
-const userData = [
-  {
-    initials: 'IG',
-    name: 'Irakli Gogicha',
-    github: 'https://github.com/gogicha007',
-  },
-  {
-    initials: 'OP',
-    name: 'Oleg Polovinko',
-    github: 'https://github.com/sheritsh',
-  },
-  {
-    initials: 'VB',
-    name: 'Vladyslav Barvinko',
-    github: 'https://github.com/Barvinko',
-  },
-];
+import { developersData } from '@/types/developersData';
 
 const Footer = () => {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -37,16 +20,16 @@ const Footer = () => {
           2025 <FaRegCopyright />
         </h2>
       </Link>
-      <div className={styles.footer__userLinks}>
-        {userData.map((user, index) => (
+      <div className={styles.footer__developerLinks}>
+        {developersData.map((developer, index) => (
           <Link
             key={index}
-            href={user.github}
-            className={styles.footer__userLink}
+            href={developer.github}
+            className={styles.footer__developerLink}
             target="_blank"
           >
-            <span className="font-[600]">{user.initials}</span>
-            <span className={styles.footer__fullname}>{user.name}</span>
+            <span className="font-[600]">{developer.initials}</span>
+            <span className={styles.footer__fullname}>{developer.name}</span>
           </Link>
         ))}
       </div>
