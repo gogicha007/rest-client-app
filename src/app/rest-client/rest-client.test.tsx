@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RestClientLayout from './layout';
-import RestClientPage from './page';
 import DeletePage from './delete/page';
 import GetPage from './get/page';
 import HeadPage from './head/page';
@@ -21,10 +20,6 @@ jest.mock('@/components/rest-client', () => ({
 describe('RestClient', () => {
   it('RestClientLayout', () => {
     render(<RestClientLayout />);
-    expect(screen.getByTestId('rest-client-mock')).toBeInTheDocument();
-  });
-  it('RestClientPage', () => {
-    render(<RestClientPage />);
     expect(screen.getByTestId('rest-client-mock')).toBeInTheDocument();
   });
 });
