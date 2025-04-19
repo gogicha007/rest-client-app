@@ -1,0 +1,45 @@
+$mobile-breakpoint: 600px;
+$hover-breakpoint: '(hover: hover) and (pointer: fine)';
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition-smooth {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+.home__welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  gap: 1rem;
+}
+.home__auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.home__menu {
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
