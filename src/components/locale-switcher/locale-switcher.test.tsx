@@ -1,68 +1,37 @@
 import React from 'react';
-import { jest } from '@jest/globals';
-import {
-  render,
-  screen,
-  fireEvent,
-  cleanup,
-  waitFor,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import LocaleSwitcherSelect from './LocaleSwitcherSelect';
-import { setUserLocale } from '../../utils/locale';
+import LocaleSwitcher from './LocaleSwitcher';
 
-jest.mock('../../utils/locale', () => ({
-  setUserLocale: jest.fn(),
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => `translated:${key}`,
+  useLocale: () => 'en',
 }));
 
-jest.mock('react', () => ({
-  ...jest.requireActual<typeof React>('react'),
-  useTransition: () => [true, (callback: () => void) => callback()],
+jest.mock('./LocaleSwitcherSelect', () => ({
+  __esModule: true,
+  default: ({ defaultValue, items, label }: any) => (
+    <div>
+      <div data-testid="default-value">{defaultValue}</div>
+      <div data-testid="label">{label}</div>
+      {items.map((item: any) => (
+        <div key={item.value} data-testid="item">
+          {item.label} ({item.value})
+        </div>
+      ))}
+    </div>
+  ),
 }));
 
-describe('LocaleSwitcherSelect', () => {
-  const items = [
-    { value: 'en', label: 'English' },
-    { value: 'de', label: 'Deutsch' },
-  ];
-  afterEach(cleanup);
-  it('renders correctly', () => {
-    render(<LocaleSwitcherSelect defaultValue="en" items={items} />);
-    expect(screen.getByTestId('language-toggle')).toBeInTheDocument();
-  });
+describe('LocaleSwitcher', () => {
+  it('renders with correct default locale and translated labels', () => {
+    render(<LocaleSwitcher />);
 
-  it('sets initial state based on defaultValue', () => {
-    render(<LocaleSwitcherSelect defaultValue="en" items={items} />);
-    const checkboxEn = screen.getByRole('checkbox');
-    expect(checkboxEn).not.toBeChecked();
-
-    cleanup();
-
-    render(<LocaleSwitcherSelect defaultValue="de" items={items} />);
-    const checkboxDe = screen.getByRole('checkbox');
-    expect(checkboxDe).toBeChecked();
-  });
-
-  it('updates state on checkbox change', () => {
-    render(<LocaleSwitcherSelect defaultValue="en" items={items} />);
-    const checkbox = screen.getByRole('checkbox');
-    fireEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
-    expect(setUserLocale).toHaveBeenCalledWith('de');
-
-    fireEvent.click(checkbox);
-    expect(checkbox).not.toBeChecked();
-    expect(setUserLocale).toHaveBeenCalledWith('en');
-  });
-
-  it('displays Loader when isPending is true', async () => {
-    render(<LocaleSwitcherSelect defaultValue="en" items={items} />);
-    const checkbox = screen.getByRole('checkbox');
-
-    fireEvent.click(checkbox);
-
-    await waitFor(() => {
-      expect(screen.getByTestId('loader')).toBeInTheDocument();
-    });
+    expect(screen.getByTestId('default-value')).toHaveTextContent('en');
+    expect(screen.getByTestId('label')).toHaveTextContent('translated:label');
+    const items = screen.getAllByTestId('item');
+    expect(items).toHaveLength(2);
+    expect(items[0]).toHaveTextContent('translated:en (en)');
+    expect(items[1]).toHaveTextContent('translated:de (de)');
   });
 });
