@@ -40,7 +40,7 @@ export const Variables = () => {
 
   return (
     <div className="container">
-      <h1 className="title">Variables</h1>
+      <h1 className="title">{tHist('title')}</h1>
       <article className={s.variables}>
         <section className={s.variables__section}>
           <div className={s.variables__container}>
