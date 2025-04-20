@@ -125,10 +125,6 @@ describe('AuthProvider', () => {
       expect(getByText('User: None')).toBeInTheDocument();
     });
 
-    console.log(
-      'Number of calls to router.push:',
-      mockedNavigation.__mockPush.mock.calls.length
-    );
     expect(mockedNavigation.__mockPush).toHaveBeenCalledTimes(1);
     expect(mockedNavigation.__mockPush).toHaveBeenCalledWith('/');
   });

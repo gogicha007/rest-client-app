@@ -43,7 +43,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           await logout();
           setCurrentUser(null);
           if (!redirected) {
-            console.log('router.push("/") called in onAuthStateChanged');
             router.push('/');
             setRedirected(true);
           }
@@ -64,7 +63,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           await logout();
           setCurrentUser(null);
           if (!redirected) {
-            console.log('router.push("/") called in checkTokenOnRouteChange');
             router.push('/');
             setRedirected(true);
           }

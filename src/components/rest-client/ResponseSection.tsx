@@ -85,7 +85,6 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
         body: parsedBody,
       });
 
-      // Save request data to Firebase
       const auth = getAuth();
       const user = auth.currentUser;
       const url = `${currentPath}?${queryParams}`;
