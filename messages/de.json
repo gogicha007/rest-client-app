@@ -1,0 +1,125 @@
+{
+  "LocaleSwitcher": {
+    "de": "Deutsch",
+    "en": "Englisch",
+    "label": "Sprache"
+  },
+  "HomePage": {
+    "title": "Startseite",
+    "about": {
+      "title": "Über das Projekt",
+      "authors": "Entwickler",
+      "project_header": "Projekt",
+      "project_content": "REST-Client-App - Eine leichtgewichtige Version von Postman, erstellt mit Next JS",
+      "course_header": "Kurs",
+      "course_content": "RS School React JS"
+    },
+    "welcome": "Willkommen!",
+    "welcomeBack": "Willkommen zurück!",
+    "restClient": "REST-Client",
+    "history": "Verlauf",
+    "variables": "Variablen",
+    "pageError": "Allgemeiner Fehler!"
+  },
+  "HeaderMenu": {
+    "home": "Startseite",
+    "rest-client": "REST-Client",
+    "history": "Verlauf",
+    "variables": "Variablen"
+  },
+  "LoginPage": {
+    "pageError": "Anmeldeseitenfehler!"
+  },
+  "RegisterPage": {
+    "pageError": "Registrierungsseitenfehler!"
+  },
+  "AuthForm": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "logout": "Abmelden",
+    "error": "Ein unerwarteter Fehler ist aufgetreten."
+  },
+  "RestClientPage": {
+    "title": "REST-Client",
+    "urlInput": {
+      "placeholder": "Endpunkt-URL eingeben"
+    },
+    "HeadersEditor": {
+      "title": "Header",
+      "headerName_placeholder": "Header-Name",
+      "headerValue_placeholder": "Header-Wert",
+      "addHeaderButton": "Header hinzufügen",
+      "removeHeaderButton": "Entfernen"
+    },
+    "RequestBodyEditor": {
+      "title": "Anfrageinhalt",
+      "button": "JSON formatieren",
+      "placeholder": "Anfrageinhalt eingeben (JSON)",
+      "errorMessage": "Ungültiges JSON-Format"
+    },
+    "CodeGenerator": {
+      "title": "Generierter Code",
+      "errorMessage": "Fehler beim Generieren des Codes. Bitte versuchen Sie es erneut."
+    },
+    "ResponseSection": {
+      "title": "Antwort",
+      "button_sending": "Senden",
+      "button_send": "Anfrage senden",
+      "headers_title": "Header",
+      "body_title": "Inhalt"
+    },
+    "pageError": "REST-Client-Seitenfehler!"
+  },
+  "HistoryPage": {
+    "title": "Verlauf",
+    "noHistoryFound": "Kein Verlauf gefunden.",
+    "userNotAuthenticated": "Benutzer nicht authentifiziert",
+    "pageError": "Verlaufsseitenfehler!"
+  },
+  "VariablesPage": {
+    "title": "Variablen",
+    "add_variable": "Variable hinzufügen",
+    "key": "Schlüssel",
+    "value": "Wert",
+    "button": "Hinzufügen",
+    "current_variables": "Aktuelle Variablen",
+    "pageError": "Variablen-Seitenfehler!"
+  },
+  "Buttons": {
+    "toMain": "Zurück zur Hauptseite",
+    "tryAgain": "Erneut versuchen"
+  },
+  "RestClient": {
+    "headers": {
+      "title": "Header",
+      "name_placeholder": "Header-Name",
+      "value_placeholder": "Header-Wert",
+      "add_button": "Header hinzufügen",
+      "remove_button": "Entfernen"
+    },
+    "requestBody": {
+      "title": "Anfrageinhalt",
+      "format_button": "JSON formatieren",
+      "placeholder": "Anfrageinhalt eingeben (JSON)",
+      "error_message": "Ungültiges JSON-Format"
+    },
+    "codeGenerator": {
+      "title": "Generierter Code",
+      "error_message": "Fehler beim Generieren des Codes. Bitte versuchen Sie es erneut."
+    },
+    "response": {
+      "title": "Antwort",
+      "sending": "Wird gesendet...",
+      "send_button": "Anfrage senden",
+      "headers_title": "Header",
+      "body_title": "Inhalt",
+      "url_error": "Bitte geben Sie eine URL ein",
+      "error": "Ein Fehler ist aufgetreten"
+    },
+    "url": {
+      "placeholder": "Endpunkt-URL eingeben"
+    }
+  }
+}

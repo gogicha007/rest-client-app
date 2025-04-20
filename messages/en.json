@@ -1,0 +1,125 @@
+{
+  "LocaleSwitcher": {
+    "de": "Deutsch",
+    "en": "English",
+    "label": "Language"
+  },
+  "HomePage": {
+    "title": "Home Page",
+    "about": {
+      "title": "About the project",
+      "authors": "Developers",
+      "project_header": "Project",
+      "project_content": "REST Client app - A light-weight version of Postman created with Next JS",
+      "course_header": "Course",
+      "course_content": "RS School React JS"
+    },
+    "welcome": "Welcome!",
+    "welcomeBack": "Welcome back!",
+    "restClient": "REST Client",
+    "history": "History",
+    "variables": "Variables",
+    "pageError": "General error!"
+  },
+  "HeaderMenu": {
+    "home": "Home",
+    "rest-client": "REST Client",
+    "history": "History",
+    "variables": "Variables"
+  },
+  "LoginPage": {
+    "pageError": "Sign In Page error!"
+  },
+  "RegisterPage": {
+    "pageError": "Sign Up Page error!"
+  },
+  "AuthForm": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "logout": "Sign Out",
+    "error": "An unexpected error occurred."
+  },
+  "RestClientPage": {
+    "title": "REST Client",
+    "urlInput": {
+      "placeholder": "Enter endpoint URL"
+    },
+    "HeadersEditor": {
+      "title": "Headers",
+      "headerName_placeholder": "Header name",
+      "headerValue_placeholder": "Header value",
+      "addHeaderButton": "Add Header",
+      "removeHeaderButton": "Remove"
+    },
+    "RequestBodyEditor": {
+      "title": "Request Body",
+      "button": "Format JSON",
+      "placeholder": "Enter request body (JSON)",
+      "errorMessage": "Invalid JSON format"
+    },
+    "CodeGenerator": {
+      "title": "Generated Code",
+      "errorMessage": "Error generating code. Please try again."
+    },
+    "ResponseSection": {
+      "title": "Response",
+      "button_sending": "Sending",
+      "button_send": "Send Request",
+      "headers_title": "Headers",
+      "body_title": "Body"
+    },
+    "pageError": "REST-Client Page Error!"
+  },
+  "HistoryPage": {
+    "title": "History",
+    "noHistoryFound": "No request history found.",
+    "userNotAuthenticated": "User not authenticated",
+    "pageError": "History Page Error!"
+  },
+  "VariablesPage": {
+    "title": "Variables",
+    "add_variable": "Add Variable",
+    "key": "Key",
+    "value": "Value",
+    "button": "Add",
+    "current_variables": "Current Variables",
+    "pageError": "Variables Page Error!"
+  },
+  "Buttons": {
+    "toMain": "Back to main",
+    "tryAgain": "Try again"
+  },
+  "RestClient": {
+    "headers": {
+      "title": "Headers",
+      "name_placeholder": "Header name",
+      "value_placeholder": "Header value",
+      "add_button": "Add Header",
+      "remove_button": "Remove"
+    },
+    "requestBody": {
+      "title": "Request Body",
+      "format_button": "Format JSON",
+      "placeholder": "Enter request body (JSON)",
+      "error_message": "Invalid JSON format"
+    },
+    "codeGenerator": {
+      "title": "Generated Code",
+      "error_message": "Error generating code. Please try again."
+    },
+    "response": {
+      "title": "Response",
+      "sending": "Sending...",
+      "send_button": "Send Request",
+      "headers_title": "Headers",
+      "body_title": "Body",
+      "url_error": "Please enter a URL",
+      "error": "An error occurred"
+    },
+    "url": {
+      "placeholder": "Enter endpoint URL"
+    }
+  }
+}

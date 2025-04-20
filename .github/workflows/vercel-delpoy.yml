@@ -1,0 +1,49 @@
+name: Vercel PR Deployment
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel
+        run: |
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --confirm
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Comment on PR with deployment URL
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            try {
+              // Read the Vercel deployment URL from the .vercel directory
+              const projectId = JSON.parse(fs.readFileSync('.vercel/project.json')).projectId;
+              const orgId = JSON.parse(fs.readFileSync('.vercel/project.json')).orgId;
+              
+              const comment = `✅ Preview deployment is ready!
+              🔍 Preview: https://${projectId}.vercel.app`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } catch (error) {
+              console.log("Error commenting on PR:", error);
+            }

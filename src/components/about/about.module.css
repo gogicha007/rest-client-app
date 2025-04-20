@@ -1,0 +1,19 @@
+.about__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.about__authors {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+.about p {
+  font-size: 1.2rem;
+}
+.about__header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}

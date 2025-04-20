@@ -1,0 +1,16 @@
+.auth-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.auth-bar__login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+.auth-bar__logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
