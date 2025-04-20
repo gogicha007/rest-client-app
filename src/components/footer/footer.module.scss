@@ -66,18 +66,21 @@
   }
 }
 
-.footer__logo {
-  cursor: pointer;
-  transition: 0.4s ease;
+.footer__link_logo {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
 }
-.dev {
-  width: 250px;
-  scale: 50%;
+.footer__logo {
+  transition: 0.4s ease;
+  height: 50px;
+  flex: 1;
 }
-.prod {
-  height: 40px;
-}
+
+
 .footer__logo:hover {
   filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
     contrast(87%);

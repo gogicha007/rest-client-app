@@ -14,7 +14,7 @@ jest.mock('next/image', () => {
   };
 });
 
-jest.mock('../../../public/rss.svg', () => {
+jest.mock('../../../public/rsslogo.svg', () => {
   const RssMock = (props: SVGProps<SVGSVGElement>) => {
     return <svg {...props}>Mocked RSS</svg>;
   };
