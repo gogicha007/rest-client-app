@@ -5,7 +5,14 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { getFirestore, addDoc, collection, getDocs } from 'firebase/firestore';
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+} from 'firebase/firestore';
 import { RequestDataWithLink } from '@/types/request';
 import { destroyCookie } from 'nookies';
 
@@ -47,16 +54,20 @@ const saveRequestData = async (
 ) => {
   try {
     const history = await getRequestHistory(userId);
-    const urls = history.map((val) => val.url);
-    const checkUrl = urls.includes(requestData.url);
-    if (checkUrl) {
-      return;
+    const existingRequest = history.find((val) => val.url === requestData.url);
+    const requestDataPlain = { ...requestData };
+
+    if (existingRequest) {
+      const docRef = doc(db, 'users', userId, 'requests', existingRequest.id);
+      await updateDoc(docRef, requestDataPlain);
+      return existingRequest.id;
+    } else {
+      const docRef = await addDoc(
+        collection(db, 'users', userId, 'requests'),
+        requestDataPlain
+      );
+      return docRef.id;
     }
-    const docRef = await addDoc(
-      collection(db, 'users', userId, 'requests'),
-      requestData
-    );
-    return docRef.id;
   } catch (error) {
     throw error;
   }
