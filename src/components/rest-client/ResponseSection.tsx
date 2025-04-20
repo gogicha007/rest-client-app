@@ -29,9 +29,6 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
   const variables = useAppSelector(selectVariables);
 
   const sendRequest = async () => {
-    console.log('request >', requestData);
-    console.log('variables >', variables);
-
     if (!requestData.url) {
       setError(t('url_error'));
       return;

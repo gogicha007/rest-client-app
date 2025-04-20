@@ -28,7 +28,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       }
     } catch (error) {
       setIsValidJson(false);
-      console.log(error);
+      console.error('Error parsing JSON:', error);
     }
   }, [value]);
 
@@ -46,7 +46,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       setIsValidJson(true);
     } catch (error) {
       setIsValidJson(false);
-      console.log(error);
+      console.error('Error formatting JSON:', error);
     }
   };
 
