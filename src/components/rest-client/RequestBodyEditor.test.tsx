@@ -30,10 +30,25 @@ describe('RequestBodyEditor', () => {
     expect(mockOnChange).toHaveBeenCalled();
   });
 
-  it('shows error for invalid JSON', () => {
+  it('does not show error for invalid JSON until blur', () => {
     render(
       <RequestBodyEditor value="{invalid json}" onChange={mockOnChange} />
     );
+    expect(screen.queryByText('error_message')).not.toBeInTheDocument();
+
+    const textarea = screen.getByRole('textbox');
+    fireEvent.blur(textarea);
+    expect(screen.getByText('error_message')).toBeInTheDocument();
+  });
+
+  it('shows error when format button is clicked with invalid JSON', () => {
+    render(
+      <RequestBodyEditor value="{invalid json}" onChange={mockOnChange} />
+    );
+
+    const formatButton = screen.getByText('format_button');
+    fireEvent.click(formatButton);
+
     expect(screen.getByText('error_message')).toBeInTheDocument();
   });
 });

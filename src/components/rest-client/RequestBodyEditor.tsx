@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import s from './RestClient.module.scss';
 import { useTranslations } from 'next-intl';
 
@@ -14,27 +14,40 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
   onChange,
 }) => {
   const [isValidJson, setIsValidJson] = useState(true);
+  const [showError, setShowError] = useState(false);
   const [formattedValue, setFormattedValue] = useState(value);
   const t = useTranslations('RestClient.requestBody');
 
+  const validateJson = useCallback(
+    (jsonString: string, shouldShowError: boolean) => {
+      try {
+        if (jsonString) {
+          JSON.parse(jsonString);
+          setIsValidJson(true);
+        } else {
+          setIsValidJson(true);
+        }
+      } catch (error) {
+        setIsValidJson(false);
+        console.error('Error parsing JSON:', error);
+      }
+      setShowError(shouldShowError && !isValidJson);
+    },
+    [isValidJson]
+  );
+
   useEffect(() => {
     setFormattedValue(value);
-    try {
-      if (value) {
-        JSON.parse(value);
-        setIsValidJson(true);
-      } else {
-        setIsValidJson(true);
-      }
-    } catch (error) {
-      setIsValidJson(false);
-      console.error('Error parsing JSON:', error);
-    }
-  }, [value]);
+    validateJson(value, false);
+  }, [value, validateJson]);
 
   const handleChange = (newValue: string) => {
     setFormattedValue(newValue);
     onChange(newValue);
+  };
+
+  const handleBlur = () => {
+    validateJson(formattedValue, true);
   };
 
   const handleFormat = () => {
@@ -44,8 +57,10 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       setFormattedValue(formatted);
       onChange(formatted);
       setIsValidJson(true);
+      setShowError(false);
     } catch (error) {
       setIsValidJson(false);
+      setShowError(true);
       console.error('Error formatting JSON:', error);
     }
   };
@@ -61,12 +76,11 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
       <textarea
         value={formattedValue}
         onChange={(e) => handleChange(e.target.value)}
-        className={`${s.requestBody} ${!isValidJson ? s.invalidJson : ''}`}
+        onBlur={handleBlur}
+        className={`${s.requestBody} ${showError ? s.invalidJson : ''}`}
         placeholder={t('placeholder')}
       />
-      {!isValidJson && (
-        <div className={s.errorMessage}>{t('error_message')}</div>
-      )}
+      {showError && <div className={s.errorMessage}>{t('error_message')}</div>}
     </div>
   );
 };
