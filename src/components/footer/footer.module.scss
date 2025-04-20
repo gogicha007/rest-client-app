@@ -67,13 +67,17 @@
 }
 
 .footer__logo {
-  width: 250px;
   cursor: pointer;
-  scale: 50%;
   transition: 0.4s ease;
   flex: 1;
 }
-
+.dev {
+  width: 250px;
+  scale: 50%;
+}
+.prod {
+  height: 40px;
+}
 .footer__logo:hover {
   filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
     contrast(87%);

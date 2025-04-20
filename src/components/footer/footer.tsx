@@ -37,11 +37,11 @@ const Footer = () => {
         <Image
           src={logoSrc}
           alt="RssLogo"
-          className={styles.footer__logo}
+          className={`${styles.footer__logo} ${styles.prod}`}
           priority
         />
       ) : (
-        <RssLogo className={styles.footer__logo} />
+        <RssLogo className={`${styles.footer__logo} ${styles.dev}`} />
       )}
     </div>
   );

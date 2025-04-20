@@ -16,11 +16,13 @@ const Header = () => {
 
   return (
     <div className={styles.header}>
-      {isProduction ? (
-        <Image src={logoSrc} alt="Logo" className={styles.logo} priority />
-      ) : (
-        <Logo className={styles.logo} />
-      )}
+      <Link href="/">
+        {isProduction ? (
+          <Image src={logoSrc} alt="Logo" className={styles.logo} priority />
+        ) : (
+          <Logo className={styles.logo} />
+        )}
+      </Link>
       {currentUser && (
         <nav className={styles.nav}>
           <Link href="/" className={styles.navLink}>
