@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './RestClient.module.scss';
+import { useTranslations } from 'next-intl';
 
 interface UrlInputProps {
   value: string;
@@ -7,6 +8,8 @@ interface UrlInputProps {
 }
 
 const UrlInput: React.FC<UrlInputProps> = ({ value, onChange }) => {
+  const t = useTranslations('RestClient.url');
+
   return (
     <div className={s.urlInputContainer}>
       <input
@@ -14,7 +17,7 @@ const UrlInput: React.FC<UrlInputProps> = ({ value, onChange }) => {
         className={s.urlInput}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Enter endpoint URL"
+        placeholder={t('placeholder')}
       />
     </div>
   );

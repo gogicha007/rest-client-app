@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import s from './RestClient.module.scss';
+import { useTranslations } from 'next-intl';
 
 interface RequestBodyEditorProps {
   value: string;
@@ -14,6 +15,7 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
 }) => {
   const [isValidJson, setIsValidJson] = useState(true);
   const [formattedValue, setFormattedValue] = useState(value);
+  const t = useTranslations('RestClient.requestBody');
 
   useEffect(() => {
     setFormattedValue(value);
@@ -51,19 +53,19 @@ const RequestBodyEditor: React.FC<RequestBodyEditorProps> = ({
   return (
     <div className={s.requestBodyEditor}>
       <div className={s.editorHeader}>
-        <h3>Request Body</h3>
+        <h3>{t('title')}</h3>
         <button onClick={handleFormat} className={`button ${s.formatBtn}`}>
-          Format JSON
+          {t('format_button')}
         </button>
       </div>
       <textarea
         value={formattedValue}
         onChange={(e) => handleChange(e.target.value)}
         className={`${s.requestBody} ${!isValidJson ? s.invalidJson : ''}`}
-        placeholder="Enter request body (JSON)"
+        placeholder={t('placeholder')}
       />
       {!isValidJson && (
-        <div className={s.errorMessage}>Invalid JSON format</div>
+        <div className={s.errorMessage}>{t('error_message')}</div>
       )}
     </div>
   );
