@@ -1,5 +1,5 @@
 import styles from './footer.module.scss';
-import RssLogo from '../../../public/rss-logo.svg';
+import RssLogo from '../../../public/rsslogo.svg';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaRegCopyright } from 'react-icons/fa';
@@ -7,7 +7,7 @@ import { developersData } from '@/types/developersData';
 
 const Footer = () => {
   const isProduction = process.env.NODE_ENV === 'production';
-  const logoSrc = isProduction ? '/rss-logo.svg' : RssLogo;
+  const logoSrc = isProduction ? '/rsslogo.svg' : RssLogo;
   return (
     <div className={styles.footer}>
       <Link
