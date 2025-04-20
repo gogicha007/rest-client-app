@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
-import { RestClient } from '@/components/rest-client';
 
-const RestClientLayout: React.FC = () => {
+const RestClientLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <div className="container">
       <h1 className="title">REST Client</h1>
-      <RestClient />
+      {children}
     </div>
   );
 };
