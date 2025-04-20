@@ -72,26 +72,32 @@ const RestClient: React.FC = () => {
 
     const params = new URLSearchParams(searchParams.toString());
 
-    // Only clear and reset headers if the headers property was changed
     if (newData.headers) {
-      // Clear all existing headers from params
       searchParams.forEach((_, key) => {
         if (key !== 'url' && key !== 'body') {
           params.delete(key);
         }
       });
 
-      // Add all current headers
       Object.entries(updatedData.headers).forEach(([key, value]) => {
         params.set(key, value);
       });
     }
 
-    if (updatedData.url) {
-      params.set('url', btoa(updatedData.url));
+    if (newData.url !== undefined) {
+      if (newData.url === '') {
+        params.delete('url');
+      } else {
+        params.set('url', btoa(updatedData.url));
+      }
     }
-    if (updatedData.body) {
-      params.set('body', btoa(updatedData.body));
+
+    if (newData.body !== undefined) {
+      if (newData.body === '') {
+        params.delete('body');
+      } else {
+        params.set('body', btoa(updatedData.body));
+      }
     }
 
     window.history.pushState({}, '', `?${params.toString()}`);

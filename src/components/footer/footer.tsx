@@ -33,7 +33,11 @@ const Footer = () => {
           </Link>
         ))}
       </div>
-      <Link href="https://rs.school/courses/reactjs" target="_blank" className={styles.footer__link_logo}>
+      <Link
+        href="https://rs.school/courses/reactjs"
+        target="_blank"
+        className={styles.footer__link_logo}
+      >
         {isProduction ? (
           <Image
             src={logoSrc}
