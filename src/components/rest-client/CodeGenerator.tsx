@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { RequestData } from '../../types/request';
 import * as codegen from 'postman-code-generators';
+import { useTranslations } from 'next-intl';
 import { Request } from 'postman-collection';
 import s from './RestClient.module.scss';
 import { replaceTemplateVariables } from '@/utils/utils';
@@ -25,6 +26,7 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
   });
   const [generatedCode, setGeneratedCode] = useState<string>('');
   const variables = useAppSelector(selectVariables);
+  const t = useTranslations('RestClient');
 
   const getCodegenOptions = codegen
     .getLanguageList()
@@ -70,13 +72,13 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
       convertOptions,
       (error: Error | null, snippet: string) => {
         if (error) {
-          setGeneratedCode('Error generating code. Please try again.');
+          setGeneratedCode(t('codeGenerator.error_message'));
         } else {
           setGeneratedCode(replaceTemplateVariables(snippet, variables));
         }
       }
     );
-  }, [selectedLanguage, requestData, variables]);
+  }, [selectedLanguage, requestData, variables, t]);
 
   useEffect(() => {
     generateCode();
@@ -85,7 +87,7 @@ const CodeGenerator: React.FC<CodeGeneratorProps> = ({ requestData }) => {
   return (
     <div className={s.codeGenerator}>
       <div className={s.codeGeneratorHeader}>
-        <h3>Generated Code</h3>
+        <h3>{t('codeGenerator.title')}</h3>
 
         <select
           value={selectedLanguage.option}

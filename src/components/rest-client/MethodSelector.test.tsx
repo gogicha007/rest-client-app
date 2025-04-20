@@ -3,6 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import MethodSelector from './MethodSelector';
 import '@testing-library/jest-dom';
 
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
 describe('MethodSelector', () => {
   const mockOnChange = jest.fn();
 

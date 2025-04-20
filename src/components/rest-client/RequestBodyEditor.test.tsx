@@ -3,6 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import RequestBodyEditor from './RequestBodyEditor';
 import '@testing-library/jest-dom';
 
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
 describe('RequestBodyEditor', () => {
   const mockOnChange = jest.fn();
   const initialValue = '{"key": "value"}';
@@ -20,7 +24,7 @@ describe('RequestBodyEditor', () => {
   it('handles JSON formatting', () => {
     render(<RequestBodyEditor value={initialValue} onChange={mockOnChange} />);
 
-    const formatButton = screen.getByRole('button', { name: /format json/i });
+    const formatButton = screen.getByText('format_button');
     fireEvent.click(formatButton);
 
     expect(mockOnChange).toHaveBeenCalled();
@@ -30,6 +34,6 @@ describe('RequestBodyEditor', () => {
     render(
       <RequestBodyEditor value="{invalid json}" onChange={mockOnChange} />
     );
-    expect(screen.getByText('Invalid JSON format')).toBeInTheDocument();
+    expect(screen.getByText('error_message')).toBeInTheDocument();
   });
 });

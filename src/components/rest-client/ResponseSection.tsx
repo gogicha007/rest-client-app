@@ -8,6 +8,7 @@ import { getAuth } from 'firebase/auth';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useAppSelector } from '@/store/hooks';
 import { selectVariables } from '@/store/variablesSlice';
+import { useTranslations } from 'next-intl';
 import {
   replaceTemplateVariables,
   replaceVariablesInObject,
@@ -21,6 +22,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
   const [response, setResponse] = useState<ResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations('RestClient.response');
 
   const currentPath = usePathname();
   const queryParams = useSearchParams();
@@ -31,7 +33,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
     console.log('variables >', variables);
 
     if (!requestData.url) {
-      setError('Please enter a URL');
+      setError(t('url_error'));
       return;
     }
 
@@ -94,7 +96,7 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
         await saveRequestData(user.uid, { ...requestData, link: url });
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : t('error'));
     } finally {
       setIsLoading(false);
     }
@@ -103,13 +105,13 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
   return (
     <div className={s.responseSection}>
       <div className={s.responseHeader}>
-        <h3>Response</h3>
+        <h3>{t('title')}</h3>
         <button
           onClick={sendRequest}
           disabled={isLoading}
           className={`button ${s.sendRequestBtn}`}
         >
-          {isLoading ? 'Sending...' : 'Send Request'}
+          {isLoading ? t('sending') : t('send_button')}
         </button>
       </div>
 
@@ -125,11 +127,11 @@ const ResponseSection: React.FC<ResponseSectionProps> = ({ requestData }) => {
             </span>
           </div>
           <div className={s.responseHeaders}>
-            <h4>Headers</h4>
+            <h4>{t('headers_title')}</h4>
             <pre>{JSON.stringify(response.headers, null, 2)}</pre>
           </div>
           <div className={s.responseBody}>
-            <h4>Body</h4>
+            <h4>{t('body_title')}</h4>
             <pre>{response.body}</pre>
           </div>
         </>

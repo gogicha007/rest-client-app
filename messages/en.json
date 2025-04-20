@@ -90,5 +90,36 @@
   "Buttons": {
     "toMain": "Back to main",
     "tryAgain": "Try again"
+  },
+  "RestClient": {
+    "headers": {
+      "title": "Headers",
+      "name_placeholder": "Header name",
+      "value_placeholder": "Header value",
+      "add_button": "Add Header",
+      "remove_button": "Remove"
+    },
+    "requestBody": {
+      "title": "Request Body",
+      "format_button": "Format JSON",
+      "placeholder": "Enter request body (JSON)",
+      "error_message": "Invalid JSON format"
+    },
+    "codeGenerator": {
+      "title": "Generated Code",
+      "error_message": "Error generating code. Please try again."
+    },
+    "response": {
+      "title": "Response",
+      "sending": "Sending...",
+      "send_button": "Send Request",
+      "headers_title": "Headers",
+      "body_title": "Body",
+      "url_error": "Please enter a URL",
+      "error": "An error occurred"
+    },
+    "url": {
+      "placeholder": "Enter endpoint URL"
+    }
   }
 }

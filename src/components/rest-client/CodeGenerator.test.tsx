@@ -3,6 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import CodeGenerator from './CodeGenerator';
 import '@testing-library/jest-dom';
 
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
 jest.mock('postman-code-generators', () => ({
   // _ - unused fns before callback
   convert: jest.fn((_, __, ___, ____, callback) =>

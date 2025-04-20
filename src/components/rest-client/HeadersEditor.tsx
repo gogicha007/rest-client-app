@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import s from './RestClient.module.scss';
+import { useTranslations } from 'next-intl';
 
 interface HeadersEditorProps {
   headers: Record<string, string>;
@@ -11,6 +12,7 @@ interface HeadersEditorProps {
 const HeadersEditor: React.FC<HeadersEditorProps> = ({ headers, onChange }) => {
   const [newKey, setNewKey] = useState('');
   const [newValue, setNewValue] = useState('');
+  const t = useTranslations('RestClient.headers');
 
   const handleAddHeader = () => {
     if (newKey && newValue) {
@@ -42,7 +44,7 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({ headers, onChange }) => {
 
   return (
     <div className={s.headersEditor}>
-      <h3>Headers</h3>
+      <h3>{t('title')}</h3>
       <div className={s.headersList}>
         {Object.entries(headers).map(([key, value]) => (
           <div key={key} className={s.headerRow}>
@@ -62,7 +64,7 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({ headers, onChange }) => {
               onClick={() => handleRemoveHeader(key)}
               className={`button ${s.removeHeader}`}
             >
-              Remove
+              {t('remove_button')}
             </button>
           </div>
         ))}
@@ -72,21 +74,21 @@ const HeadersEditor: React.FC<HeadersEditorProps> = ({ headers, onChange }) => {
           type="text"
           value={newKey}
           onChange={(e) => setNewKey(e.target.value)}
-          placeholder="Header name"
+          placeholder={t('name_placeholder')}
           className={s.headerKey}
         />
         <input
           type="text"
           value={newValue}
           onChange={(e) => setNewValue(e.target.value)}
-          placeholder="Header value"
+          placeholder={t('value_placeholder')}
           className={s.headerValue}
         />
         <button
           onClick={handleAddHeader}
           className={`button ${s.addHeaderBtn}`}
         >
-          Add Header
+          {t('add_button')}
         </button>
       </div>
     </div>

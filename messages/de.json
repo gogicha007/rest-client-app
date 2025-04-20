@@ -90,5 +90,36 @@
   "Buttons": {
     "toMain": "Zurück zur Hauptseite",
     "tryAgain": "Erneut versuchen"
+  },
+  "RestClient": {
+    "headers": {
+      "title": "Header",
+      "name_placeholder": "Header-Name",
+      "value_placeholder": "Header-Wert",
+      "add_button": "Header hinzufügen",
+      "remove_button": "Entfernen"
+    },
+    "requestBody": {
+      "title": "Anfrageinhalt",
+      "format_button": "JSON formatieren",
+      "placeholder": "Anfrageinhalt eingeben (JSON)",
+      "error_message": "Ungültiges JSON-Format"
+    },
+    "codeGenerator": {
+      "title": "Generierter Code",
+      "error_message": "Fehler beim Generieren des Codes. Bitte versuchen Sie es erneut."
+    },
+    "response": {
+      "title": "Antwort",
+      "sending": "Wird gesendet...",
+      "send_button": "Anfrage senden",
+      "headers_title": "Header",
+      "body_title": "Inhalt",
+      "url_error": "Bitte geben Sie eine URL ein",
+      "error": "Ein Fehler ist aufgetreten"
+    },
+    "url": {
+      "placeholder": "Endpunkt-URL eingeben"
+    }
   }
 }
