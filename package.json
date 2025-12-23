@@ -18,7 +18,7 @@
     "@reduxjs/toolkit": "^2.6.1",
     "@tailwindcss/postcss": "^4.0.17",
     "firebase": "^11.5.0",
-    "next": "15.2.3",
+    "next": "15.2.8",
     "next-intl": "^4.0.2",
     "next-plugin-svgr": "^1.1.12",
     "nookies": "^2.5.2",
